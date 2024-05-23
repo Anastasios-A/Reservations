@@ -1,11 +1,19 @@
 import ReservationList from "./ReservationList";
 import {
+  CustomerStatus,
   ICustomer,
   IReservations,
   useReservationsContext,
 } from "../store/reservation-context";
 
 export default function Tabs() {
+
+  interface IReduceAccumulator {
+    pending : number;
+    accepted : number;
+    declined : number;
+  }
+
   const onChooseTab = useReservationsContext().onChooseTab;
   const choosenTab: string = useReservationsContext().choosenTab;
 
@@ -13,17 +21,17 @@ export default function Tabs() {
     useReservationsContext().reservations;
 
   const reservationsSum = (reservations || []).reduce(
-    (a: { pen: number; acc: number; dec: number }, c: ICustomer) => {
-      if (c?.status === "pending") {
-        a.pen += 1;
-      } else if (c.status === "accepted") {
-        a.acc += 1;
-      } else if (c.status === "declined") {
-        a.dec += 1;
+    (a: IReduceAccumulator, c: ICustomer) => {
+      if (c?.status === CustomerStatus.Pending) {
+        a.pending += 1;
+      } else if (c.status === CustomerStatus.Accepted) {
+        a.accepted += 1;
+      } else if (c.status === CustomerStatus.Declined) {
+        a.declined += 1;
       }
       return a;
     },
-    { pen: 0, acc: 0, dec: 0 }
+    { pending: 0, accepted: 0, declined: 0 }
   );
 
   return (
@@ -42,7 +50,7 @@ export default function Tabs() {
           className={choosenTab === "pending" ? "active" : undefined}
         >
           <a className="nav-link" onClick={() => onChooseTab("pending")}>
-            Pending {reservationsSum.pen}
+            Pending {reservationsSum.pending}
           </a>
         </li>
         <li
@@ -50,7 +58,7 @@ export default function Tabs() {
           className={choosenTab === "accepted" ? "active" : undefined}
         >
           <a className="nav-link" onClick={() => onChooseTab("accepted")}>
-            Accepted {reservationsSum.acc}
+            Accepted {reservationsSum.accepted}
           </a>
         </li>
         <li
@@ -58,7 +66,7 @@ export default function Tabs() {
           className={choosenTab === "declined" ? "active" : undefined}
         >
           <a className="nav-link" onClick={() => onChooseTab("declined")}>
-            Declined {reservationsSum.dec}
+            Declined {reservationsSum.declined}
           </a>
         </li>
       </ul>
