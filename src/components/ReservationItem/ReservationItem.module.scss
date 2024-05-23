@@ -1,41 +1,92 @@
-
-
-
-.item{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width:100%;
-    height: 100px;
-    background-color: green;
-    margin-top: 15px;
-    border-radius: 15px;
-    background-color:aliceblue;
+.item {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  height: 115px;
+  margin-top: 15px;
+  border-radius: 15px;
+  background-color: #f5f5f5;
+  padding: 5px 20px;
+  font-weight: 500;
+  font-size: 15px;
 }
 
-.personalInfo{
-
+.personalInfo {
+  display: flex;
+  flex-direction: column;
 }
 
-.name{
-
+.name {
+  font-weight: bold;
+  font-size: 16px;
 }
 
-.date{
-
+.date {
+  text-align: center;
 }
 
-.people{
-
+.people {
+  text-align: center;
 }
 
-.status{
+.status {
+  text-align: center;
+  font-weight: bold;
+  &Accepted {
+    color: #5dd253;
+  }
 
+  &Declined {
+    color: #fa6b6b;
+  }
 }
 
-.itemButtons{
-    display: flex;
-    flex-direction: column;
-    height: 90%;
-    justify-content: space-around;
+.itemButtons {
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+  justify-content: space-around;
+  align-items: center;
+  font-weight: bold;
+}
+
+.acceptButton {
+  background-color: #5dd253;
+  border: none;
+  border-radius: 15px;
+  width: 80px;
+  height: 27px;
+  font-size: 14px;
+}
+
+.declineButton {
+  background-color: #fa6b6b;
+  border: none;
+  border-radius: 15px;
+  width: 80px;
+  height: 27px;
+  font-size: 14px;
+}
+
+.action {
+  border: none;
+  border-radius: 15px;
+  width: 100px;
+  height: 27px;
+  font-size: 14px;
+
+  &Decline {
+    background-color: #fa6b6b;
+  }
+
+  &Accept {
+    background-color: #5dd253;
+  }
+
+  &Disabled {
+    background-color: rgba(173, 173, 171, 0.5);
+    color: white;
+  }
 }
