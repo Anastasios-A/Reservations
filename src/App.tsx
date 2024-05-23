@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import './App.module.scss';
+import ReservationList from './components/ReservationList';
+import Tabs from './components/Tabs';
+import CustomerSearch from './components/customerSearch';
+import ReservationsContextProvider from './store/reservation-context';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <ReservationsContextProvider>
+    <div className="container">
+    <div className="row">
+      <div className="col-xs-12">
+       <CustomerSearch />
+       <Tabs />
+       <ReservationList />
+      </div>
     </div>
-  );
+  </div>
+  </ReservationsContextProvider>
+   );
 }
 
 export default App;
+
+// npx create-react-app my-app --template typescript
+// npm install sass
+// npm install bootstrap@3

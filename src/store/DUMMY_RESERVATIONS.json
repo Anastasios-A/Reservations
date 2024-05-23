@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "name": "John",
+    "lastName": "Doe",
+    "email": "john.doe@example.com",
+    "phone": 1234567890,
+    "people": 4,
+    "date": "2024-06-01T19:30:00Z",
+    "status": "pending"
+  },
+  {
+    "id": 2,
+    "name": "Jane",
+    "lastName": "Smith",
+    "email": "jane.smith@example.com",
+    "phone": 9876543210,
+    "people": 2,
+    "date": "2024-06-02T18:00:00Z",
+    "status": "accepted"
+  },
+  {
+    "id": 3,
+    "name": "Michael",
+    "lastName": "Johnson",
+    "email": "michael.johnson@example.com",
+    "phone": 1122334455,
+    "people": 3,
+    "date": "2024-06-03T20:00:00Z",
+    "status": "pending"
+  },
+  {
+    "id": 4,
+    "name": "Emily",
+    "lastName": "Davis",
+    "email": "emily.davis@example.com",
+    "phone": 5566778899,
+    "people": 5,
+    "date": "2024-06-04T17:45:00Z",
+    "status": "accepted"
+  },
+  {
+    "id": 5,
+    "name": "Chris",
+    "lastName": "Brown",
+    "email": "chris.brown@example.com",
+    "phone": 6677889900,
+    "people": 6,
+    "date": "2024-06-05T19:00:00Z",
+    "status": "pending"
+  },
+  {
+    "id": 6,
+    "name": "Anna",
+    "lastName": "Wilson",
+    "email": "anna.wilson@example.com",
+    "phone": 7788990011,
+    "people": 2,
+    "date": "2024-06-06T18:30:00Z",
+    "status": "accepted"
+  },
+  {
+    "id": 7,
+    "name": "David",
+    "lastName": "Taylor",
+    "email": "david.taylor@example.com",
+    "phone": 8899001122,
+    "people": 3,
+    "date": "2024-06-07T19:15:00Z",
+    "status": "pending"
+  },
+  {
+    "id": 8,
+    "name": "Laura",
+    "lastName": "Martinez",
+    "email": "laura.martinez@example.com",
+    "phone": 9900112233,
+    "people": 4,
+    "date": "2024-06-08T20:30:00Z",
+    "status": "accepted"
+  }
+]
