@@ -13,10 +13,16 @@ export enum CustomerStatus {
   Declined = "declined"
 }
 
+export enum ChoosenTab  {
+  All = "all",
+  Pending = "pending",
+  Accepted = "accepted",
+  Declined = "declined"
+}
+
 export interface ICustomer {
   id: number;
   name?: string;
-  lastName?: string;
   email?: string;
   phone?: number;
   people?: number;
@@ -50,8 +56,8 @@ const parsedReservations: IReservations = (dummyReservationsData || []).map(
 
 type ReservationsContextValue = {
   reservations: IReservations;
-  onChooseTab: (choosenTab: string) => void;
-  choosenTab: string;
+  onChooseTab: (choosenTab: ChoosenTab) => void;
+  choosenTab: ChoosenTab;
   searchCustomer: (searchTerm: string) => void;
   searchedCustomers: IReservations;
   acceptReservation: (customerId: number) => void;
@@ -81,11 +87,10 @@ export default function ReservationsContextProvider(
   const [reservations, setReservations] =
     useState<IReservations>(parsedReservations);
   const [searchedCustomers, setSearchedCustomer] = useState<IReservations>([]);
-  const [choosenTab, setChoosenTab] = useState("all");
+  const [choosenTab, setChoosenTab] = useState(ChoosenTab.All);
 
-  const onChooseTab = (choosenTab: string = "all") => {
+  const onChooseTab = (choosenTab: ChoosenTab = ChoosenTab.All):void => {
     setChoosenTab(choosenTab);
-    return choosenTab;
   };
 
   const searchCustomer = useCallback(
@@ -93,7 +98,6 @@ export default function ReservationsContextProvider(
       const filteredReservations = (reservations || []).filter(
         (customer) =>
           customer?.name?.includes(searchTerm) ||
-          customer?.lastName?.includes(searchTerm) ||
           customer?.email?.includes(searchTerm)
       );
       setSearchedCustomer(

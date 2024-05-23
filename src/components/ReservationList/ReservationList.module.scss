@@ -1,0 +1,8 @@
+.reservationsList {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  max-height: 80% ;
+  overflow :visible;
+  overflow-x: hidden;
+}
