@@ -7,6 +7,12 @@ import {
 } from "react";
 import dummyReservationsData from "./DUMMY_RESERVATIONS.json";
 
+export enum CustomerStatus {
+  Pending = "pending",
+  Accepted = "accepted",
+  Declined = "declined"
+}
+
 export interface ICustomer {
   id: number;
   name?: string;
@@ -15,18 +21,31 @@ export interface ICustomer {
   phone?: number;
   people?: number;
   date?: Date;
-  status?: string;
+  status?: CustomerStatus;
 }
 
 export type IReservations = ICustomer[];
 
+const mapStatusToEnum = (status: string): CustomerStatus => {
+  switch (status) {
+    case "pending":
+      return CustomerStatus.Pending;
+    case "accepted":
+      return CustomerStatus.Accepted;
+    case "declined":
+      return CustomerStatus.Declined;
+    default:
+      throw new Error(`Unknown status: ${status}`);
+  }
+};
+
 const parsedReservations: IReservations = (dummyReservationsData || []).map(
   (customer) => ({
     ...customer,
-    date: new Date(customer?.date),
+    date: new Date(customer.date),
+    status: mapStatusToEnum(customer.status)
   })
 );
-
 // const parsedReservations:any[] = [];
 
 type ReservationsContextValue = {
@@ -89,13 +108,13 @@ export default function ReservationsContextProvider(
     (selectedCustomerID: number): void => {
       const updatedReservations = (reservations || []).map((customer) => {
         if (customer.id === selectedCustomerID) {
-          return { ...customer, status: "accepted" };
+          return { ...customer, status: CustomerStatus.Accepted };
         }
         return customer;
       });
       const updateSearchList = (searchedCustomers || []).map((customer) => {
         if (customer.id === selectedCustomerID) {
-          return { ...customer, status: "accepted" };
+          return { ...customer, status: CustomerStatus.Accepted };
         }
         return customer;
       });
@@ -111,13 +130,13 @@ export default function ReservationsContextProvider(
     (selectedCustomerID: number): void => {
       const updatedReservations = (reservations || []).map((customer) => {
         if (customer.id === selectedCustomerID) {
-          return { ...customer, status: "declined" };
+          return { ...customer, status: CustomerStatus.Declined };
         }
         return customer;
       });
       const updateSearchList = (searchedCustomers || []).map((customer) => {
         if (customer.id === selectedCustomerID) {
-          return { ...customer, status: "declined" };
+          return { ...customer, status: CustomerStatus.Declined };
         }
         return customer;
       });
