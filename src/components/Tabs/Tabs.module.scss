@@ -13,6 +13,7 @@
   min-width: max-content;
   box-shadow: 0 3px 4px 1px grey;
   border-radius: 20px;
+  font-size: 15px;
 }
 
 .button {
@@ -34,7 +35,7 @@
 
 .active {
   border: 2px solid grey;
-  transform: scale(1.03);
+  transform: scale(1.1);
 }
 
 .buttonSum {
@@ -46,7 +47,7 @@
   min-width: max-content;
   min-height: max-content;
   border-radius: 50%;
-  border: 2px solid green;
+  border: 2px solid  #232323;
   margin: 6px;
   box-sizing: border-box;
 }
