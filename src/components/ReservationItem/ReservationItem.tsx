@@ -38,14 +38,28 @@ export default function ReservationItem(props: ICustomer) {
       <div className={styles.itemButtons}>
         <button
           disabled={props.status === CustomerStatus.Accepted}
-          className={`${styles.action}  ${styles.actionAccept} ${props.status === CustomerStatus.Accepted ? styles.actionDisabled : " "} `}
+          className={`${styles.action}  ${styles.actionAccept} ${
+            props.status === CustomerStatus.Accepted
+              ? styles.actionDisabled
+              : " "
+          } `}
           onClick={() => acceptReservation(props.id)}
         >
           Accept
         </button>
         <button
           disabled={props.status === CustomerStatus.Declined}
-          className={styles.action + " " + styles.actionDecline + " "+ ` ${props.status === CustomerStatus.Declined ? styles.actionDisabled : " "}`}
+          className={
+            styles.action +
+            " " +
+            styles.actionDecline +
+            " " +
+            ` ${
+              props.status === CustomerStatus.Declined
+                ? styles.actionDisabled
+                : " "
+            }`
+          }
           onClick={() => declineReservation(props.id)}
         >
           Decline
