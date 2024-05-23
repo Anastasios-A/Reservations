@@ -1,0 +1,41 @@
+
+
+
+.item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:100%;
+    height: 100px;
+    background-color: green;
+    margin-top: 15px;
+    border-radius: 15px;
+    background-color:aliceblue;
+}
+
+.personalInfo{
+
+}
+
+.name{
+
+}
+
+.date{
+
+}
+
+.people{
+
+}
+
+.status{
+
+}
+
+.itemButtons{
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    justify-content: space-around;
+}

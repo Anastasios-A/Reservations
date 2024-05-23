@@ -1,24 +1,25 @@
+import "./App.module.scss";
+import ReservationList from "./components/ReservationList/ReservationList";
+import Tabs from "./components/Tabs/Tabs";
+import ReservationsContextProvider from "./store/reservation-context";
 
-import './App.module.scss';
-import ReservationList from './components/ReservationList';
-import Tabs from './components/Tabs';
-import CustomerSearch from './components/customerSearch';
-import ReservationsContextProvider from './store/reservation-context';
+import styles from "./App.module.scss";
+import SidePanel from "./components/SidePanel/sidePanel";
+import Header from "./components/Header/header";
 
 function App() {
   return (
     <ReservationsContextProvider>
-    <div className="container">
-    <div className="row">
-      <div className="col-xs-12">
-       <CustomerSearch />
-       <Tabs />
-       <ReservationList />
+      <div className={styles.app}>
+        <SidePanel />
+        <main className={styles.appMain}>
+        <Header />
+        <Tabs />
+        <ReservationList />
+        </main>
       </div>
-    </div>
-  </div>
-  </ReservationsContextProvider>
-   );
+    </ReservationsContextProvider>
+  );
 }
 
 export default App;
