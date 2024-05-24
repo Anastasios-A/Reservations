@@ -4,14 +4,17 @@
   align-items: center;
   width: 100%;
   margin-bottom: 30px;
+  font-weight: bold;
 }
 
 .tabButtons {
+  height: 38px;
+  width: 280px;
   display: flex;
   justify-content: start;
   align-items: baseline;
   min-width: max-content;
-  box-shadow: 0 3px 4px 1px grey;
+  box-shadow: 0px 4px 4px 0px rgba(33,33,33,0.25);
   border-radius: 20px;
   font-size: 15px;
 }
@@ -20,7 +23,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 30px;
+  height: 38px;
   min-width: 90px;
   background-color: whitesmoke;
   border: none;
@@ -31,11 +34,22 @@
   &:last-child {
     border-radius: 0 20px 20px 0;
   }
+
+  &Pending {
+    color: #e8cb2f;
+  }
+
+  &Accepted {
+    color: #5dd253;
+  }
+
+  &Declined {
+    color: #fa6b6b;
+  }
 }
 
 .active {
   border: 2px solid grey;
-  transform: scale(1.1);
 }
 
 .buttonSum {
@@ -47,7 +61,19 @@
   min-width: max-content;
   min-height: max-content;
   border-radius: 50%;
-  border: 2px solid  #232323;
+  border: 2px solid #232323;
   margin: 6px;
   box-sizing: border-box;
+
+  &Pending {
+    border-color: #e8cb2f;
+  }
+
+  &Accepted {
+    border-color: #5dd253;
+  }
+
+  &Declined {
+  border-color: #fa6b6b;
+  }
 }

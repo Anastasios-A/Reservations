@@ -29,6 +29,8 @@ export default function ReservationItem(props: ICustomer) {
             ? styles.statusAccepted
             : props.status === CustomerStatus.Declined
             ? styles.statusDeclined
+            : props.status === CustomerStatus.Pending
+            ? styles.statusPending
             : ""
         }  `}
       >
@@ -37,15 +39,24 @@ export default function ReservationItem(props: ICustomer) {
 
       <div className={styles.itemButtons}>
         <button
-          disabled={props.status === CustomerStatus.Accepted}
-          className={`${styles.action}  ${styles.actionAccept} ${props.status === CustomerStatus.Accepted ? styles.actionDisabled : " "} `}
-          onClick={() => acceptReservation(props.id)}
+          className={`${styles.action} ${
+            props.status === CustomerStatus.Accepted
+              ? styles.actionDecline
+              : styles.actionAccept
+          }`}
+          onClick={() => {
+            props.status !== CustomerStatus.Accepted
+              ? acceptReservation(props.id)
+              : declineReservation(props.id);
+          }}
         >
-          Accept
+          {props.status === CustomerStatus.Accepted ? "Cancel" : "Accept"}
         </button>
         <button
-          disabled={props.status === CustomerStatus.Declined}
-          className={styles.action + " " + styles.actionDecline + " "+ ` ${props.status === CustomerStatus.Declined ? styles.actionDisabled : " "}`}
+          disabled={props.status !== CustomerStatus.Pending}
+          className={`${styles.action} ${styles.actionDecline} ${
+            props.status !== CustomerStatus.Pending ? styles.actionDisabled : ""
+          }`}
           onClick={() => declineReservation(props.id)}
         >
           Decline
