@@ -7,7 +7,8 @@
   min-height: 118px;
   margin-top: 15px;
   border-radius: 15px;
-  background-color: #f5f5f5;
+  // background-color: #f5f5f5;
+  background-color:#f9f9f991;
   padding: 5px 20px;
   font-weight: 500;
   font-size: 15px;
@@ -96,5 +97,8 @@
   &Disabled {
     background-color: rgba(173, 173, 171, 0.5);
     color: white;
+  }
+  &DisabledOff {
+   display: none;
   }
 }

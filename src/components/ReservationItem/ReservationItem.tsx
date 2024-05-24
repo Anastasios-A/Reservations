@@ -53,9 +53,15 @@ export default function ReservationItem(props: ICustomer) {
           {props.status === CustomerStatus.Accepted ? "Cancel" : "Accept"}
         </button>
         <button
-          disabled={props.status !== CustomerStatus.Pending}
+          disabled={
+            props.status === CustomerStatus.Accepted ||
+            props.status === CustomerStatus.Declined
+          }
           className={`${styles.action} ${styles.actionDecline} ${
-            props.status !== CustomerStatus.Pending ? styles.actionDisabled : ""
+            props.status === CustomerStatus.Accepted ||
+            props.status === CustomerStatus.Declined
+              ? styles.actionDisabledOff
+              : ""
           }`}
           onClick={() => declineReservation(props.id)}
         >
