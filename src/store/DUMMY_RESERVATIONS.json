@@ -1,8 +1,7 @@
 [
   {
     "id": 1,
-    "name": "John",
-    "lastName": "Doe",
+    "userName": "John",
     "email": "john.doe@example.com",
     "phone": 1234567890,
     "people": 4,
@@ -11,8 +10,7 @@
   },
   {
     "id": 2,
-    "name": "Jane",
-    "lastName": "Smith",
+    "userName": "Jane",
     "email": "jane.smith@example.com",
     "phone": 9876543210,
     "people": 2,
@@ -21,8 +19,7 @@
   },
   {
     "id": 3,
-    "name": "Michael",
-    "lastName": "Johnson",
+    "userName": "Michael",
     "email": "michael.johnson@example.com",
     "phone": 1122334455,
     "people": 3,
@@ -31,8 +28,7 @@
   },
   {
     "id": 4,
-    "name": "Emily",
-    "lastName": "Davis",
+    "userName": "Emily",
     "email": "emily.davis@example.com",
     "phone": 5566778899,
     "people": 5,
@@ -41,8 +37,7 @@
   },
   {
     "id": 5,
-    "name": "Chris",
-    "lastName": "Brown",
+    "userName": "Chris",
     "email": "chris.brown@example.com",
     "phone": 6677889900,
     "people": 6,
@@ -51,8 +46,7 @@
   },
   {
     "id": 6,
-    "name": "Anna",
-    "lastName": "Wilson",
+    "userName": "Anna",
     "email": "anna.wilson@example.com",
     "phone": 7788990011,
     "people": 2,
@@ -61,8 +55,7 @@
   },
   {
     "id": 7,
-    "name": "David",
-    "lastName": "Taylor",
+    "userName": "David",
     "email": "david.taylor@example.com",
     "phone": 8899001122,
     "people": 3,
@@ -71,8 +64,7 @@
   },
   {
     "id": 8,
-    "name": "Laura",
-    "lastName": "Martinez",
+    "userName": "Laura",
     "email": "laura.martinez@example.com",
     "phone": 9900112233,
     "people": 4,

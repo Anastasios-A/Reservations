@@ -12,8 +12,8 @@ export default function ReservationItem(props: ICustomer) {
   return (
     <div className={styles.item}>
       <div className={styles.personalInfo}>
-        <div className={styles.name}>{props.name}</div>
-        <div>{props.email}</div>
+        <div className={styles.name}>{props.userName}</div>
+        <div>{props.userEmail}</div>
         <div>{props.phone}</div>
       </div>
 
