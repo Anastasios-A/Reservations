@@ -15,7 +15,7 @@ export default function DeclineModal(props: IDeclineModalProps) {
 
   const declinedReservation: string | undefined = reservations?.find(
     (customer) => customer.id === declinedReservationId
-  )?.email
+  )?.email;
 
   return (
     <div className={styles.declineModal}>
@@ -43,16 +43,15 @@ export default function DeclineModal(props: IDeclineModalProps) {
         </section>
 
         <textarea className={styles.textArea} />
-
-        <footer className={styles.footer}>
-          <button
-            className={styles.footerButton}
-            onClick={() => sendDecline(declinedReservationId!)}
-          >
-            Send
-          </button>
-        </footer>
       </main>
+      <footer className={styles.footer}>
+        <button
+          className={styles.footerButton}
+          onClick={() => sendDecline(declinedReservationId!)}
+        >
+          Send
+        </button>
+      </footer>
     </div>
   );
 }
