@@ -10,14 +10,14 @@ import dummyReservationsData from "./DUMMY_RESERVATIONS.json";
 export enum CustomerStatus {
   Pending = "pending",
   Accepted = "accepted",
-  Declined = "declined"
+  Declined = "declined",
 }
 
-export enum ChoosenTab  {
+export enum ChoosenTab {
   All = "all",
   Pending = "pending",
   Accepted = "accepted",
-  Declined = "declined"
+  Declined = "declined",
 }
 
 export interface ICustomer {
@@ -30,6 +30,11 @@ export interface ICustomer {
   status?: CustomerStatus;
 }
 
+
+export interface IDeclineModal {
+  declinedReservationId: number | undefined;
+  modalIsOpen: boolean;
+}
 
 export type IReservations = ICustomer[];
 
@@ -50,7 +55,7 @@ const parsedReservations: IReservations = (dummyReservationsData || []).map(
   (customer) => ({
     ...customer,
     date: new Date(customer.date),
-    status: mapStatusToEnum(customer.status)
+    status: mapStatusToEnum(customer.status),
   })
 );
 // const parsedReservations:any[] = [];
@@ -62,7 +67,10 @@ type ReservationsContextValue = {
   searchCustomer: (searchTerm: string) => void;
   searchedCustomers: IReservations;
   acceptReservation: (customerId: number) => void;
-  declineReservation: (customeId: number) => void;
+  declineModal: IDeclineModal;
+  openDeclineForm: (customerId: number) => void;
+  sendDecline: (customerId: number) => void;
+  cancelDeclineForm: () => void;
 };
 
 const ReservationsContext = createContext<ReservationsContextValue | null>(
@@ -89,8 +97,12 @@ export default function ReservationsContextProvider(
     useState<IReservations>(parsedReservations);
   const [searchedCustomers, setSearchedCustomer] = useState<IReservations>([]);
   const [choosenTab, setChoosenTab] = useState(ChoosenTab.All);
+  const [declineModal, setDeclineModal] = useState<IDeclineModal>({
+    declinedReservationId: undefined,
+    modalIsOpen: false,
+  });
 
-  const onChooseTab = (choosenTab: ChoosenTab = ChoosenTab.All):void => {
+  const onChooseTab = (choosenTab: ChoosenTab = ChoosenTab.All): void => {
     setChoosenTab(choosenTab);
   };
 
@@ -131,7 +143,14 @@ export default function ReservationsContextProvider(
     [reservations, searchedCustomers]
   );
 
-  const declineReservation = useCallback(
+  const openDeclineForm = (selectedCustomerID: number): void => {
+    setDeclineModal({
+      declinedReservationId: selectedCustomerID,
+      modalIsOpen: true,
+    });
+  };
+
+  const sendDecline = useCallback(
     (selectedCustomerID: number): void => {
       const updatedReservations = (reservations || []).map((customer) => {
         if (customer.id === selectedCustomerID) {
@@ -145,12 +164,22 @@ export default function ReservationsContextProvider(
         }
         return customer;
       });
-
+      setDeclineModal({
+        declinedReservationId: undefined,
+        modalIsOpen: false,
+      });
       setReservations(updatedReservations);
       setSearchedCustomer(updateSearchList);
     },
     [reservations, searchedCustomers]
   );
+
+  const cancelDeclineForm = () => {
+    setDeclineModal({
+      declinedReservationId: undefined,
+      modalIsOpen: false,
+    });
+  };
 
   const ctx: ReservationsContextValue = {
     reservations,
@@ -159,7 +188,10 @@ export default function ReservationsContextProvider(
     onChooseTab,
     choosenTab,
     acceptReservation,
-    declineReservation,
+    sendDecline,
+    declineModal,
+    openDeclineForm,
+    cancelDeclineForm,
   };
 
   return (
