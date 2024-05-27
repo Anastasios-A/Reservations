@@ -1,30 +1,28 @@
 import "./App.module.scss";
 import ReservationList from "./components/ReservationList/ReservationList";
 import Tabs from "./components/Tabs/Tabs";
-import ReservationsContextProvider from "./store/reservation-context";
+import { useReservationsContext } from "./store/reservation-context";
 
 import styles from "./App.module.scss";
 import SidePanel from "./components/SidePanel/sidePanel";
+import DeclineModal from "./components/DeclineModal/DeclineModal";
 import Header from "./components/Header/header";
-import { ThemeProvider } from "@fluentui/react";
-import { initializeIcons } from '@fluentui/react/lib/Icons';
-import DeclineModal from "./components/DeclineModal/DeclineModa";
 
 function App() {
+  const isDeclineModalOpen = useReservationsContext().declineModal.modalIsOpen;
+
   return (
-    <ThemeProvider>
-    <ReservationsContextProvider>
-      <DeclineModal/>
+    <>
       <div className={styles.app}>
+        {isDeclineModalOpen && <DeclineModal />}
         <SidePanel />
         <main className={styles.appMain}>
-        <Header />
-        <Tabs />
-        <ReservationList />
+          <Header />
+          <Tabs />
+          <ReservationList />
         </main>
       </div>
-    </ReservationsContextProvider>
-    </ThemeProvider>
+    </>
   );
 }
 
