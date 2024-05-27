@@ -22,14 +22,13 @@ export enum ChoosenTab {
 
 export interface ICustomer {
   id: number;
-  userName?: string;
-  userEmail?: string;
+  name?: string;
+  email?: string;
   phone?: number;
   people?: number;
   date?: Date;
   status?: CustomerStatus;
 }
-
 
 export interface IDeclineModal {
   declinedReservationId: number | undefined;
@@ -110,8 +109,8 @@ export default function ReservationsContextProvider(
     (searchTerm: string): void => {
       const filteredReservations = (reservations || []).filter(
         (customer) =>
-          customer?.userName?.includes(searchTerm) ||
-          customer?.userEmail?.includes(searchTerm)
+          customer?.name?.includes(searchTerm) ||
+          customer?.email?.includes(searchTerm)
       );
       setSearchedCustomer(
         filteredReservations?.length > 0 ? filteredReservations : reservations

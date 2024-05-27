@@ -15,7 +15,7 @@ export default function DeclineModal(props: IDeclineModalProps) {
 
   const declinedReservation: string | undefined = reservations?.find(
     (customer) => customer.id === declinedReservationId
-  )?.userEmail
+  )?.email
 
   return (
     <div className={styles.declineModal}>
