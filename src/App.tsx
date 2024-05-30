@@ -7,6 +7,7 @@ import styles from "./App.module.scss";
 import SidePanel from "./components/SidePanel/sidePanel";
 import DeclineModal from "./components/DeclineModal/DeclineModal";
 import Header from "./components/Header/header";
+import TimeSlotsScreen from "./components/TimeSlots/TimeSlotsScreen/TimeSlotsScreen";
 
 function App() {
   const isDeclineModalOpen = useReservationsContext().declineModal.modalIsOpen;
@@ -20,6 +21,8 @@ function App() {
           <Header />
           <Tabs />
           <ReservationList />
+
+         {/*  <TimeSlotsScreen/> */}
         </main>
       </div>
     </>
