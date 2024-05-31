@@ -1,0 +1,49 @@
+.availableSlots {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.availableSlotsMain {
+  display: flex;
+  height: 100%;
+  justify-content: space-evenly;
+  margin-top: 20vh;
+}
+
+.timeslotsContainer {
+  display: flex;
+  flex-direction: column;
+  width: 420px;
+  height: 520px;
+  background-color: #f9f9f991;
+  border: 1px solid black;
+  border-radius: 30px;
+  font-size: 16px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  flex: 1;
+  border-radius: 0 0 30px 30px;
+  margin-right: 50px;
+}
+
+.action {
+  border: none;
+  border-radius: 15px;
+  width: 100px;
+  height: 27px;
+  font-size: 14px;
+
+  &Decline {
+    background-color: #7d7d7d;
+    margin-right: 15px;
+  }
+
+  &Accept {
+    background-color: #5dd253;
+  }
+}
