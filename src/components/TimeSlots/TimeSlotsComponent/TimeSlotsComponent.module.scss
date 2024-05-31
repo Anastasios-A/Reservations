@@ -1,0 +1,20 @@
+.timeSlots {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 350px;
+  justify-items: center;
+}
+
+h3 {
+  font-size: 14px;
+  margin: 20px;
+}
+
+.timeSlot {
+  text-align: center;
+  width: 80%;
+}
+
+.checkbox {
+  transform: scale(1.4);
+}
