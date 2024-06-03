@@ -1,7 +1,7 @@
 import { IReservation } from "../store/reservation-context";
 
 
-export const updateReservationState = async (data: IReservation): Promise<any> => {
+export const updateReservationState = async (data: IReservation[]): Promise<any> => {
   try {
     const response = await fetch(
       "https://us-central1-myathenspath.cloudfunctions.net/updateReservation",
