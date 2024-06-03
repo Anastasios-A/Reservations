@@ -1,20 +1,21 @@
 import {
-  CustomerStatus,
-  ICustomer,
+  CustomerStatusEnum,
+  IReservation,
   useReservationsContext,
 } from "../../store/reservation-context";
 
 import styles from "./ReservationItem.module.scss";
 
+
 export default function ReservationItem(props: ICustomer) {
   const { acceptReservation, openCloseDeclineForm } = useReservationsContext();
+
 
   return (
     <div className={styles.item}>
       <div className={styles.personalInfo}>
-        <div className={styles.name}>{props.name}</div>
-        <div>{props.email}</div>
-        <div>{props.phone}</div>
+        <div className={styles.name}>{props.userName}</div>
+        <div>{props.userEmail}</div>
       </div>
 
       <div className={styles.date}>
@@ -25,11 +26,11 @@ export default function ReservationItem(props: ICustomer) {
 
       <div
         className={`${styles.status} ${
-          props.status === CustomerStatus.Accepted
+          props.status === CustomerStatusEnum.Accepted
             ? styles.statusAccepted
-            : props.status === CustomerStatus.Declined
+            : props.status === CustomerStatusEnum.Declined
             ? styles.statusDeclined
-            : props.status === CustomerStatus.Pending
+            : props.status === CustomerStatusEnum.Pending
             ? styles.statusPending
             : ""
         }  `}
@@ -40,7 +41,7 @@ export default function ReservationItem(props: ICustomer) {
       <div className={styles.itemButtons}>
         <button
           className={`${styles.action} ${
-            props.status === CustomerStatus.Accepted
+            props.status === CustomerStatusEnum.Accepted
               ? styles.actionDisabledOff
               : styles.actionAccept
           } `}
@@ -53,11 +54,11 @@ export default function ReservationItem(props: ICustomer) {
 
         <button
           className={`${styles.action} ${styles.actionDecline} ${
-           props.status ===  CustomerStatus.Declined ? styles.actionDisabledOff : ""
+           props.status ===  CustomerStatusEnum.Declined ? styles.actionDisabledOff : ""
           } `}
           onClick={() => openCloseDeclineForm(props.id)}
         >
-          {props.status === CustomerStatus.Accepted ? "Cancel" : "Decline"}
+          {props.status === CustomerStatusEnum.Accepted ? "Cancel" : "Decline"}
         </button>
       </div>
     </div>

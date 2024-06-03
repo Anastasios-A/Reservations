@@ -1,7 +1,7 @@
 import {
   ChoosenTab,
-  CustomerStatus,
-  IReservations,
+  CustomerStatusEnum,
+  IReservation,
   useReservationsContext,
 } from "../../store/reservation-context";
 import ReservationItem from "../ReservationItem/ReservationItem";
@@ -11,14 +11,14 @@ export default function ReservationList() {
   const { reservations, choosenTab, searchedCustomers } =
     useReservationsContext();
 
-  let filteredReservations: IReservations = [];
+  let filteredReservations: IReservation[] = [];
 
   if (searchedCustomers.length === 0) {
     if (choosenTab === ChoosenTab.All) {
       filteredReservations = reservations;
     } else {
       filteredReservations = reservations.filter(
-        (res) => res.status === choosenTab as unknown as  CustomerStatus
+        (res) => res.status === choosenTab as unknown as  CustomerStatusEnum
       );
     }
   } else {
@@ -26,7 +26,7 @@ export default function ReservationList() {
       filteredReservations = searchedCustomers;
     } else {
       filteredReservations = searchedCustomers.filter(
-        (res) => res.status === choosenTab as unknown as CustomerStatus
+        (res) => res.status === choosenTab as unknown as CustomerStatusEnum
       );
     }
   }

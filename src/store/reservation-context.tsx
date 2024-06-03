@@ -3,11 +3,14 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useState,
 } from "react";
-import dummyReservationsData from "./DUMMY_RESERVATIONS.json";
+//import dummyReservationsData from "./DUMMY_RESERVATIONS.json";
+import { updateReservationState } from "../Utils/updateReservationFunction";
+import { getReservations } from "../Utils/firebaseFunctions";
 
-export enum CustomerStatus {
+export enum CustomerStatusEnum {
   Pending = "pending",
   Accepted = "accepted",
   Declined = "declined",
@@ -20,31 +23,38 @@ export enum ChoosenTab {
   Declined = "declined",
 }
 
-export interface ICustomer {
-  id: number;
-  name?: string;
-  email?: string;
-  phone?: number;
-  people?: number;
-  date?: Date;
-  status?: CustomerStatus;
+export interface IReservation {
+  id: string;
+  userEmail: string;
+  userName: string;
+  shopEmail: string;
+  status: CustomerStatusEnum;
+  shopName: string;
+  people: string;
+  storeId: string;
+  userId: string;
+  date: Date;
+  isToUser: boolean;
+  reasonOfCancelation?: string;
 }
 
 export interface IDeclineModal {
-  declinedReservationId: number | undefined;
+  declinedReservationId: string | undefined;
   modalIsOpen: boolean;
 }
 
-export type IReservations = ICustomer[];
 
-const mapStatusToEnum = (status: string): CustomerStatus => {
+
+
+
+const mapStatusToEnum = (status: string): CustomerStatusEnum => {
   switch (status) {
     case "pending":
-      return CustomerStatus.Pending;
+      return CustomerStatusEnum.Pending;
     case "accepted":
-      return CustomerStatus.Accepted;
+      return CustomerStatusEnum.Accepted;
     case "declined":
-      return CustomerStatus.Declined;
+      return CustomerStatusEnum.Declined;
     default:
       throw new Error(`Unknown status: ${status}`);
   }
@@ -59,20 +69,21 @@ const parsedReservations: IReservations = (dummyReservationsData || []).map(
 );
 
 type ReservationsContextValue = {
-  reservations: IReservations;
+  reservations: IReservation[];
   onChooseTab: (choosenTab: ChoosenTab) => void;
   choosenTab: ChoosenTab;
   searchCustomer: (searchTerm: string) => void;
-  searchedCustomers: IReservations;
-  acceptReservation: (customerId: number) => void;
+  searchedCustomers: IReservation[];
+  acceptReservation: (customerId: string) => void;
   declineModal: IDeclineModal;
+
   openCloseDeclineForm: (customerId: number | undefined) => void;
   sendDecline: (
     customerId: number | undefined,
     subject?: string,
     message?: string
   ) => void;
-};
+
 
 const ReservationsContext = createContext<ReservationsContextValue | null>(
   null
@@ -107,8 +118,10 @@ export default function ReservationsContextProvider(
   props: IReservationsContextProviderProps
 ) {
   const [reservations, setReservations] =
+
     useState<IReservations>(parsedReservations);
   const [searchedCustomers, setSearchedCustomer] = useState<IReservations>([]);
+
 
   const [choosenTab, setChoosenTab] = useState(ChoosenTab.All);
 
@@ -125,8 +138,8 @@ export default function ReservationsContextProvider(
     (searchTerm: string): void => {
       const filteredReservations = (reservations || []).filter(
         (customer) =>
-          customer?.name?.includes(searchTerm) ||
-          customer?.email?.includes(searchTerm)
+          customer?.userName?.includes(searchTerm) ||
+          customer?.userEmail?.includes(searchTerm)
       );
       setSearchedCustomer(
         filteredReservations?.length > 0 ? filteredReservations : reservations
@@ -147,6 +160,7 @@ export default function ReservationsContextProvider(
         selectedCustomerID
       );
 
+      updateReservationState(updatedReservation);
       setReservations(updatedReservations);
       setSearchedCustomer(updatedSearchList);
       console.log(reservations);
@@ -154,14 +168,36 @@ export default function ReservationsContextProvider(
     [reservations, searchedCustomers]
   );
 
+
   const openCloseDeclineForm = (selectedCustomerID?: number): void => {
     setDeclineModal((prevState) => ({
+
       declinedReservationId: selectedCustomerID,
       modalIsOpen: !prevState.modalIsOpen,
     }));
   };
 
+  const fetchData = useCallback(async () => {
+    try {
+      // Make API call to fetch reservations
+      const response: IReservation[] = await getReservations();
+
+      setReservations(response.map((customer: any) => ({
+        ...customer,
+        date: new Date(customer.date),
+        status: mapStatusToEnum(customer.status),
+      })));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchData()
+  }, [fetchData]);
+
   const sendDecline = useCallback(
+
     (selectedCustomerID?: number, subject?: string, message?: string): void => {
       if (typeof selectedCustomerID === "number") {
         const updatedReservations = updateCustomerInputs(
