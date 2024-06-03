@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import {
   useReservationsContext,
 } from "../../store/reservation-context";
@@ -6,7 +7,10 @@ import styles from "./DeclineModal.module.scss";
 interface IDeclineModalProps {}
 
 export default function DeclineModal(props: IDeclineModalProps) {
-  const { cancelDeclineForm, sendDecline, declineModal, reservations } =
+  const subject = useRef<HTMLInputElement>(null);
+  const message = useRef<HTMLTextAreaElement>(null);
+
+  const { openCloseDeclineForm, sendDecline, declineModal, reservations } =
     useReservationsContext();
 
   const declinedReservationId: string | undefined =
@@ -20,7 +24,7 @@ export default function DeclineModal(props: IDeclineModalProps) {
     <div className={styles.declineModal}>
       <header className={styles.declineModalHeader}>
         <h5> Reservation Cancelation Message</h5>
-        <button onClick={cancelDeclineForm}>x</button>
+        <button onClick={()=>openCloseDeclineForm(undefined)}>x</button>
       </header>
 
       <main className={styles.declineModalMain}>
@@ -31,24 +35,30 @@ export default function DeclineModal(props: IDeclineModalProps) {
               id="recipent"
               className={styles.detailInput}
               type="text"
-              value={declinedReservation}
+              value={declinedReservation ? declinedReservation : "-----"}
+              readOnly
             />
           </div>
 
           <div className={styles.detail}>
             <div>Subject</div>
-            <input id="subject" className={styles.detailInput} type="text" />
+            <input
+              id="subject"
+              className={styles.detailInput}
+              type="text"
+              ref={subject}
+            />
           </div>
         </section>
 
-        <textarea className={styles.textArea} />
+        <textarea className={styles.textArea} ref={message} />
       </main>
       <footer className={styles.footer}>
         <button
           className={styles.footerButton}
-          onClick={() => sendDecline(declinedReservationId!)}
+          onClick={() => sendDecline(declinedReservationId, subject.current?.value, message.current?.value)}
         >
-          Send
+          {declinedReservationId ? "Send" : "Save"}
         </button>
       </footer>
     </div>

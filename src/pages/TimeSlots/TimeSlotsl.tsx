@@ -1,9 +1,10 @@
 import { useState } from "react";
-import CalendarComponent from "../CalendarComponent/CalendarComponent";
-import TimeSlotsComponent from "../TimeSlotsComponent/TimeSlotsComponent";
-import styles from "./TimeSlotsScreen.module.scss";
+import CalendarComponent from "../../components/TimeSlots/CalendarComponent/CalendarComponent";
+import TimeSlotsComponent from "../../components/TimeSlots/TimeSlotsComponent/TimeSlotsComponent";
+import styles from "./TimeSlots.module.scss";
+import { Link } from "react-router-dom";
 
-export default function TimeSlotsScreen() {
+export default function TimeSlots() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [isSaveButtonVisible, setIsSaveButtonVisible] = useState(true);
 
@@ -18,8 +19,9 @@ export default function TimeSlotsScreen() {
 
   return (
     <div className={styles.availableSlots}>
-      <header>
+      <header className={styles.timeSlotsHeader}>
         <h1>Available Slots</h1>
+        <Link to="/" > Close </Link >
       </header>
       <main className={styles.availableSlotsMain}>
         <section className={styles.calendarContainer}>
