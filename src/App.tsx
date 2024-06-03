@@ -1,36 +1,36 @@
-import "./App.module.scss";
-import ReservationList from "./components/ReservationList/ReservationList";
-import Tabs from "./components/Tabs/Tabs";
-import { useReservationsContext } from "./store/reservation-context";
-
-import styles from "./App.module.scss";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ReactDOM from "react-dom/client";
 import SidePanel from "./components/SidePanel/sidePanel";
-import DeclineModal from "./components/DeclineModal/DeclineModal";
-import Header from "./components/Header/header";
-import TimeSlotsScreen from "./components/TimeSlots/TimeSlotsScreen/TimeSlotsScreen";
+import ReservationsContextProvider from "./store/reservation-context";
 
-function App() {
-  const isDeclineModalOpen = useReservationsContext().declineModal.modalIsOpen;
+import TimeSlots from "./pages/TimeSlots/TimeSlotsl";
+import Home from "./pages/Home/Home";
 
+export default function App() {
   return (
     <>
-      <div className={styles.app}>
-        {isDeclineModalOpen && <DeclineModal />}
-        <SidePanel />
-        <main className={styles.appMain}>
-          <Header />
-          <Tabs />
-          <ReservationList />
-
-         {/*  <TimeSlotsScreen/> */}
-        </main>
-      </div>
+      <ReservationsContextProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<SidePanel />}>
+              <Route index element={<Home />} />
+              <Route path="timeSlots" element={<TimeSlots />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </ReservationsContextProvider>
     </>
   );
 }
 
-export default App;
+const rootElement = document.getElementById("root");
+
+if (rootElement) {
+  const root = ReactDOM.createRoot(rootElement);
+  root.render(<App />);
+}
 
 // npx create-react-app my-app --template typescript
 // npm install sass
 // npm install bootstrap@3
+// npm i -D react-router-dom@latest

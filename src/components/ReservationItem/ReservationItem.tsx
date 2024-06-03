@@ -7,7 +7,7 @@ import {
 import styles from "./ReservationItem.module.scss";
 
 export default function ReservationItem(props: ICustomer) {
-  const { acceptReservation, openDeclineForm } = useReservationsContext();
+  const { acceptReservation, openCloseDeclineForm } = useReservationsContext();
 
   return (
     <div className={styles.item}>
@@ -55,7 +55,7 @@ export default function ReservationItem(props: ICustomer) {
           className={`${styles.action} ${styles.actionDecline} ${
            props.status ===  CustomerStatus.Declined ? styles.actionDisabledOff : ""
           } `}
-          onClick={() => openDeclineForm(props.id)}
+          onClick={() => openCloseDeclineForm(props.id)}
         >
           {props.status === CustomerStatus.Accepted ? "Cancel" : "Decline"}
         </button>

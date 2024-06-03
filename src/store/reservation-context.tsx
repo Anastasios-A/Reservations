@@ -57,7 +57,6 @@ const parsedReservations: IReservations = (dummyReservationsData || []).map(
     status: mapStatusToEnum(customer.status),
   })
 );
-// const parsedReservations:any[] = [];
 
 type ReservationsContextValue = {
   reservations: IReservations;
@@ -67,9 +66,12 @@ type ReservationsContextValue = {
   searchedCustomers: IReservations;
   acceptReservation: (customerId: number) => void;
   declineModal: IDeclineModal;
-  openDeclineForm: (customerId: number) => void;
-  sendDecline: (customerId: number) => void;
-  cancelDeclineForm: () => void;
+  openCloseDeclineForm: (customerId: number | undefined) => void;
+  sendDecline: (
+    customerId: number | undefined,
+    subject?: string,
+    message?: string
+  ) => void;
 };
 
 const ReservationsContext = createContext<ReservationsContextValue | null>(
@@ -89,13 +91,27 @@ interface IReservationsContextProviderProps {
   children: ReactNode;
 }
 
+const updateCustomerInputs = (
+  customerArray: IReservations,
+  selectedCustomerId?: number
+): IReservations => {
+  return (customerArray || []).map((customer) => {
+    if (customer.id === selectedCustomerId) {
+      return { ...customer, status: CustomerStatus.Accepted };
+    }
+    return customer;
+  });
+};
+
 export default function ReservationsContextProvider(
   props: IReservationsContextProviderProps
 ) {
   const [reservations, setReservations] =
     useState<IReservations>(parsedReservations);
   const [searchedCustomers, setSearchedCustomer] = useState<IReservations>([]);
+
   const [choosenTab, setChoosenTab] = useState(ChoosenTab.All);
+
   const [declineModal, setDeclineModal] = useState<IDeclineModal>({
     declinedReservationId: undefined,
     modalIsOpen: false,
@@ -122,63 +138,65 @@ export default function ReservationsContextProvider(
 
   const acceptReservation = useCallback(
     (selectedCustomerID: number): void => {
-      const updatedReservations = (reservations || []).map((customer) => {
-        if (customer.id === selectedCustomerID) {
-          return { ...customer, status: CustomerStatus.Accepted };
-        }
-        return customer;
-      });
-      const updateSearchList = (searchedCustomers || []).map((customer) => {
-        if (customer.id === selectedCustomerID) {
-          return { ...customer, status: CustomerStatus.Accepted };
-        }
-        return customer;
-      });
+      const updatedReservations = updateCustomerInputs(
+        reservations,
+        selectedCustomerID
+      );
+      const updatedSearchList = updateCustomerInputs(
+        searchedCustomers,
+        selectedCustomerID
+      );
 
       setReservations(updatedReservations);
-      setSearchedCustomer(updateSearchList);
+      setSearchedCustomer(updatedSearchList);
       console.log(reservations);
     },
     [reservations, searchedCustomers]
   );
 
-  const openDeclineForm = (selectedCustomerID: number): void => {
-    setDeclineModal({
+  const openCloseDeclineForm = (selectedCustomerID?: number): void => {
+    setDeclineModal((prevState) => ({
       declinedReservationId: selectedCustomerID,
-      modalIsOpen: true,
-    });
+      modalIsOpen: !prevState.modalIsOpen,
+    }));
   };
 
   const sendDecline = useCallback(
-    (selectedCustomerID: number): void => {
-      const updatedReservations = (reservations || []).map((customer) => {
-        if (customer.id === selectedCustomerID) {
-          return { ...customer, status: CustomerStatus.Declined };
-        }
-        return customer;
-      });
-      const updateSearchList = (searchedCustomers || []).map((customer) => {
-        if (customer.id === selectedCustomerID) {
-          return { ...customer, status: CustomerStatus.Declined };
-        }
-        return customer;
-      });
+    (selectedCustomerID?: number, subject?: string, message?: string): void => {
+      if (typeof selectedCustomerID === "number") {
+        const updatedReservations = updateCustomerInputs(
+          reservations,
+          selectedCustomerID
+        );
+        const updatedSearchList = updateCustomerInputs(
+          searchedCustomers,
+          selectedCustomerID
+        );
+
+        setReservations(updatedReservations);
+        setSearchedCustomer(updatedSearchList);
+
+        console.log("CUSTOMER DECLIENED");
+        console.log(
+          "CustomerID  : ",
+          selectedCustomerID,
+          " subject  : ",
+          subject,
+          "message  : ",
+          message
+        );
+      } else {
+        console.log("POST/SAVE NEW TEMPALTE TO FIREBASE ");
+        console.log("subject  : ", subject, "message  : ", message);
+      }
+
       setDeclineModal({
         declinedReservationId: undefined,
         modalIsOpen: false,
       });
-      setReservations(updatedReservations);
-      setSearchedCustomer(updateSearchList);
     },
     [reservations, searchedCustomers]
   );
-
-  const cancelDeclineForm = () => {
-    setDeclineModal({
-      declinedReservationId: undefined,
-      modalIsOpen: false,
-    });
-  };
 
   const ctx: ReservationsContextValue = {
     reservations,
@@ -189,8 +207,7 @@ export default function ReservationsContextProvider(
     acceptReservation,
     sendDecline,
     declineModal,
-    openDeclineForm,
-    cancelDeclineForm,
+    openCloseDeclineForm,
   };
 
   return (
