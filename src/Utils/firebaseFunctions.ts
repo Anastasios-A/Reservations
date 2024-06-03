@@ -1,7 +1,9 @@
 import {
   collection,
+  doc,
   getDocs,
   getFirestore,
+  updateDoc,
 } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { IReservation } from "../store/reservation-context";
@@ -20,6 +22,22 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 export default db;
 const RESERVATIONS_COLLECTION = "Reservations";
+
+
+
+export async function updateStoreTemplates(storeId: string, emailSubjectTemplate: string, emailTextTemplate: string): Promise<void> {
+  try {
+    const storeRef = doc(db, 'shopsDetails', 'rasdobknEsThHZMrhzy4');
+    await updateDoc(storeRef, {
+      emailSubjectTemplate,
+      emailTextTemplate
+    });
+    console.log('Store email templates updated successfully');
+  } catch (error) {
+    console.error('Error updating store email templates:', error);
+    throw error;
+  }
+}
 
 export async function getReservations(): Promise<IReservation[]> {
   try {
