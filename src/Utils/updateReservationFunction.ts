@@ -1,8 +1,10 @@
 import { IReservation } from "../store/reservation-context";
 
 
-export const updateReservationState = async (data: IReservation): Promise<any> => {
+export const updateReservationState = async (reservation?: IReservation): Promise<any> => {
   try {
+    if(!reservation)
+      return;
     const response = await fetch(
       "https://us-central1-myathenspath.cloudfunctions.net/updateReservation",
       {
@@ -11,7 +13,7 @@ export const updateReservationState = async (data: IReservation): Promise<any> =
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(reservation),
       }
     );
 

@@ -60,13 +60,7 @@ const mapStatusToEnum = (status: string): CustomerStatusEnum => {
   }
 };
 
-const parsedReservations: IReservations = (dummyReservationsData || []).map(
-  (customer) => ({
-    ...customer,
-    date: new Date(customer.date),
-    status: mapStatusToEnum(customer.status),
-  })
-);
+
 
 type ReservationsContextValue = {
   reservations: IReservation[];
@@ -77,13 +71,13 @@ type ReservationsContextValue = {
   acceptReservation: (customerId: string) => void;
   declineModal: IDeclineModal;
 
-  openCloseDeclineForm: (customerId: number | undefined) => void;
+  openCloseDeclineForm: (customerId: string | undefined) => void;
   sendDecline: (
-    customerId: number | undefined,
+    customerId: string | undefined,
     subject?: string,
     message?: string
   ) => void;
-
+}
 
 const ReservationsContext = createContext<ReservationsContextValue | null>(
   null
@@ -103,12 +97,12 @@ interface IReservationsContextProviderProps {
 }
 
 const updateCustomerInputs = (
-  customerArray: IReservations,
-  selectedCustomerId?: number
-): IReservations => {
-  return (customerArray || []).map((customer) => {
+  customerArray: IReservation[],
+  selectedCustomerId?: string
+): IReservation[] => {
+  return (customerArray || []).map((customer: IReservation) => {
     if (customer.id === selectedCustomerId) {
-      return { ...customer, status: CustomerStatus.Accepted };
+      return { ...customer, status: CustomerStatusEnum.Accepted };
     }
     return customer;
   });
@@ -119,8 +113,8 @@ export default function ReservationsContextProvider(
 ) {
   const [reservations, setReservations] =
 
-    useState<IReservations>(parsedReservations);
-  const [searchedCustomers, setSearchedCustomer] = useState<IReservations>([]);
+    useState<IReservation[]>([]);
+  const [searchedCustomers, setSearchedCustomer] = useState<IReservation[]>([]);
 
 
   const [choosenTab, setChoosenTab] = useState(ChoosenTab.All);
@@ -150,8 +144,8 @@ export default function ReservationsContextProvider(
   );
 
   const acceptReservation = useCallback(
-    (selectedCustomerID: number): void => {
-      const updatedReservations = updateCustomerInputs(
+    (selectedCustomerID: string): void => {
+      const updatedReservations: IReservation[] = updateCustomerInputs(
         reservations,
         selectedCustomerID
       );
@@ -160,7 +154,7 @@ export default function ReservationsContextProvider(
         selectedCustomerID
       );
 
-      updateReservationState(updatedReservation);
+      updateReservationState(updatedReservations?.find((res : IReservation)=> res.id === selectedCustomerID));
       setReservations(updatedReservations);
       setSearchedCustomer(updatedSearchList);
       console.log(reservations);
@@ -169,7 +163,7 @@ export default function ReservationsContextProvider(
   );
 
 
-  const openCloseDeclineForm = (selectedCustomerID?: number): void => {
+  const openCloseDeclineForm = (selectedCustomerID?: string): void => {
     setDeclineModal((prevState) => ({
 
       declinedReservationId: selectedCustomerID,
@@ -198,7 +192,7 @@ export default function ReservationsContextProvider(
 
   const sendDecline = useCallback(
 
-    (selectedCustomerID?: number, subject?: string, message?: string): void => {
+    (selectedCustomerID?: string, subject?: string, message?: string): void => {
       if (typeof selectedCustomerID === "number") {
         const updatedReservations = updateCustomerInputs(
           reservations,

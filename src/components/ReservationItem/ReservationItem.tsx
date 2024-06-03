@@ -7,7 +7,7 @@ import {
 import styles from "./ReservationItem.module.scss";
 
 
-export default function ReservationItem(props: ICustomer) {
+export default function ReservationItem(props: IReservation) {
   const { acceptReservation, openCloseDeclineForm } = useReservationsContext();
 
 
