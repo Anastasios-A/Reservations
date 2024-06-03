@@ -4,16 +4,19 @@ import SidePanel from "./components/SidePanel/sidePanel";
 import ReservationsContextProvider from "./store/reservation-context";
 
 import TimeSlots from "./pages/TimeSlots/TimeSlotsl";
-import Home from "./pages/Home/Home";
+import HomePage from "./pages/Home/Home";
+import { initializeIcons } from "@fluentui/react";
 
 export default function App() {
+  initializeIcons();
+
   return (
     <>
       <ReservationsContextProvider>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<SidePanel />}>
-              <Route index element={<Home />} />
+              <Route index element={<HomePage />} />
               <Route path="timeSlots" element={<TimeSlots />} />
             </Route>
           </Routes>

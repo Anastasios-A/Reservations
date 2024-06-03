@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
 import styles from "./TimeSlotsComponent.module.scss";
+import { DefaultButton, IconButton } from "@fluentui/react";
 
 interface TimeSlotsComponentProps {
   date: Date | null;
   onTimeSlotChange: (changed: boolean) => void;
+  onBackAction: () => void;
+  ref: any;
 }
 
 const TimeSlotsComponent: React.FC<TimeSlotsComponentProps> = ({
   date,
   onTimeSlotChange,
+  onBackAction,
+  ref,
 }) => {
   const [selectedSlots, setSelectedSlots] = useState<boolean[]>(
     Array(24).fill(false)
@@ -26,22 +31,29 @@ const TimeSlotsComponent: React.FC<TimeSlotsComponentProps> = ({
   };
   return (
     <div className={styles.timeSlotsComp}>
-      <h3>{date!.toDateString()}</h3>
-      <hr />
+      <div className={styles.titleWithBackAction}>
+        <h3>{date!.toDateString()}</h3>
+        <DefaultButton
+          componentRef={ref}
+          styles={{ root: { color: "black" } }}
+          onClick={() => onBackAction()}
+          text="Change date"
+        />
+      </div>
       <main className={styles.timeSlots}>
         {Array.from({ length: 24 }, (_, index) => (
           <div className={styles.timeSlot} key={index}>
-            <label >
-                <input
-                  type="checkbox"
-                  checked={selectedSlots[index]}
-                  onChange={() => handleCheckboxChange(index)}
-                />
-     
+            <input
+              style={{ width: "29px", height: "29px" }}
+              type="checkbox"
+              checked={selectedSlots[index]}
+              onChange={() => handleCheckboxChange(index)}
+            />
+            <div className={styles.timeSlotText}>
               {` ${" "} ${String(index).padStart(2, "0")}:00 - ${String(
                 index + 1
               ).padStart(2, "0")}:00`}
-            </label>
+            </div>
           </div>
         ))}
       </main>

@@ -1,12 +1,13 @@
 .availableSlots {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  width: 85vw;
-  position: fixed;
+  align-items: start;
+  padding: 20px;
+  //width: 85vw;
+  //position: fixed;
 }
 
-.timeSlotsHeader{
+.timeSlotsHeader {
   display: flex;
   justify-content: space-around;
   align-items: baseline;
@@ -14,18 +15,15 @@
 
 .availableSlotsMain {
   display: flex;
-  height: 100%;
-  justify-content: space-evenly;
-  margin-top: 20vh;
+  flex-direction: column;
+  width: 100%;
 }
 
 .timeslotsContainer {
   display: flex;
   flex-direction: column;
-  width: 420px;
-  height: 520px;
+  padding: 10px;
   background-color: #f9f9f991;
-  border: 1px solid black;
   border-radius: 30px;
   font-size: 16px;
 }
@@ -36,18 +34,19 @@
   align-items: center;
   flex: 1;
   border-radius: 0 0 30px 30px;
-  margin-right: 50px;
+  padding: 10px;
 }
 
 .action {
   border: none;
   border-radius: 15px;
   width: 100px;
-  height: 27px;
-  font-size: 14px;
+  height: 35px;
+  font-size: 16px;
+  font-weight: 600;
 
   &Decline {
-    background-color: #7d7d7d;
+    background-color: #b1b1b1;
     margin-right: 15px;
   }
 

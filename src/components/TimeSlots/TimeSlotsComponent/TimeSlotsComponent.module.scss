@@ -1,20 +1,35 @@
 .timeSlots {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  height: 350px;
+  grid-template-columns: repeat(5, 1fr);
+  height: 300px;
   justify-items: center;
 }
 
 h3 {
-  font-size: 14px;
-  margin: 20px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
-
+.titleWithBackAction {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.279);
+}
 .timeSlot {
   text-align: center;
-  width: 80%;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+}
+
+.timeSlotText {
+  font-weight: 600;
+  align-self: center;
 }
 
 .checkbox {
-  transform: scale(1.4);
+  transform: scale(1.8);
 }

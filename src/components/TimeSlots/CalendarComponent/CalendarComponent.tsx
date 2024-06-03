@@ -12,14 +12,13 @@ const CalendarComponent: React.FC<CalendarComponentProps> = ({
 }) => {
   return (
     <div>
-      <Calendar onClickDay={onSelectDate} className={styles.calentar} />
       <footer className={styles.calendarFooter}>
         <input id="day" type="checkbox" className={styles.checkbox} />
         <label htmlFor="day" className={styles.label}>
-          {" "}
           For every day
         </label>
       </footer>
+      <Calendar onClickDay={onSelectDate} className={styles.calentar} />
     </div>
   );
 };

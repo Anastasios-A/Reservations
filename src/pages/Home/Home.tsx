@@ -4,11 +4,9 @@ import Header from "../../components/Header/header";
 import styles from "./Home.module.scss";
 import DeclineModal from "../../components/DeclineModal/DeclineModal";
 import { useReservationsContext } from "../../store/reservation-context";
-import { Outlet } from "react-router-dom";
 
-export default function Home() {
+export default function HomePage() {
   const isDeclineModalOpen = useReservationsContext().declineModal.modalIsOpen;
-
   return (
     <div className={styles.home}>
       {isDeclineModalOpen && <DeclineModal />}
