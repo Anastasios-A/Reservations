@@ -1,9 +1,8 @@
 import styles from "./Tabs.module.scss";
 import {
   ChoosenTab,
-  CustomerStatus,
-  ICustomer,
-  IReservations,
+  CustomerStatusEnum,
+  IReservation,
   useReservationsContext,
 } from "../../store/reservation-context";
 
@@ -17,15 +16,15 @@ export default function Tabs() {
   const onChooseTab = useReservationsContext().onChooseTab;
   const choosenTab: string = useReservationsContext().choosenTab;
 
-  const reservations: IReservations = useReservationsContext().reservations;
+  const reservations: IReservation[] = useReservationsContext().reservations;
 
   const reservationsSum = (reservations || []).reduce(
-    (a: IReduceAccumulator, c: ICustomer) => {
-      if (c?.status === CustomerStatus.Pending) {
+    (a: IReduceAccumulator, c: IReservation) => {
+      if (c?.status === CustomerStatusEnum.Pending) {
         a.pending += 1;
-      } else if (c.status === CustomerStatus.Accepted) {
+      } else if (c.status === CustomerStatusEnum.Accepted) {
         a.accepted += 1;
-      } else if (c.status === CustomerStatus.Declined) {
+      } else if (c.status === CustomerStatusEnum.Declined) {
         a.declined += 1;
       }
       return a;

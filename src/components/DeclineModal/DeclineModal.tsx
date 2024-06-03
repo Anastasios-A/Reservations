@@ -1,5 +1,4 @@
 import {
-  ICustomer,
   useReservationsContext,
 } from "../../store/reservation-context";
 import styles from "./DeclineModal.module.scss";
@@ -10,12 +9,12 @@ export default function DeclineModal(props: IDeclineModalProps) {
   const { cancelDeclineForm, sendDecline, declineModal, reservations } =
     useReservationsContext();
 
-  const declinedReservationId: number | undefined =
+  const declinedReservationId: string | undefined =
     declineModal.declinedReservationId;
 
   const declinedReservation: string | undefined = reservations?.find(
     (customer) => customer.id === declinedReservationId
-  )?.email;
+  )?.userEmail;
 
   return (
     <div className={styles.declineModal}>
