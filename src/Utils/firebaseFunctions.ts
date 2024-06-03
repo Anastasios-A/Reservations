@@ -1,21 +1,14 @@
 import {
-  addDoc,
   collection,
-  deleteDoc,
-  doc,
-  getDoc,
   getDocs,
   getFirestore,
-  query,
-  setDoc,
-  updateDoc,
-  where,
 } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { IReservation } from "../store/reservation-context";
+const firebaseKey = process.env.REACT_APP_API_KEY;
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBczEYMEKz5KQjt9tbQZtP1MK14YuMvohU",
+  apiKey: firebaseKey,
   authDomain: "myathenspath.firebaseapp.com",
   projectId: "myathenspath",
   storageBucket: "myathenspath.appspot.com",
