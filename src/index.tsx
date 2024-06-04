@@ -11,11 +11,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <ThemeProvider>
-
+    <ReservationsContextProvider>
     <React.StrictMode>
       <App />
     </React.StrictMode>
-
+    </ReservationsContextProvider>
   </ThemeProvider>
 );
 

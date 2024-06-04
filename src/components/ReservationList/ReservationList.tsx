@@ -30,6 +30,7 @@ export default function ReservationList() {
       );
     }
   }
+  
   return (
     <div className={styles.reservationsList}>
       {filteredReservations.map((res) => (

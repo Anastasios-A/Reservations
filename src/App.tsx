@@ -1,36 +1,34 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ReactDOM from "react-dom/client";
 import SidePanel from "./components/SidePanel/sidePanel";
-import ReservationsContextProvider from "./store/reservation-context";
-
-import TimeSlots from "./pages/TimeSlots/TimeSlotsl";
-import HomePage from "./pages/Home/Home";
+import Header from "./components/Header/header";
+import Tabs from "./components/Tabs/Tabs";
+import ReservationList from "./components/ReservationList/ReservationList";
 import { initializeIcons } from "@fluentui/react";
+import styles from "./App.module.scss";
+import { useReservationsContext } from "./store/reservation-context";
+import DeclineModal from "./components/DeclineModal/DeclineModal";
 
 export default function App() {
   initializeIcons();
+  const isDeclineModalOpen = useReservationsContext().declineModal.modalIsOpen;
 
   return (
-    <>
-      <ReservationsContextProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<SidePanel />}>
-              <Route index element={<HomePage />} />
-              <Route path="timeSlots" element={<TimeSlots />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </ReservationsContextProvider>
-    </>
+
+
+    <div className={styles.app}>
+      
+      <aside>
+      <SidePanel />
+      </aside>
+
+      <main className={styles.appMain}>
+      {isDeclineModalOpen && <DeclineModal/>}
+        <Header />
+        <Tabs />
+        <ReservationList />
+      </main>
+
+    </div>
   );
-}
-
-const rootElement = document.getElementById("root");
-
-if (rootElement) {
-  const root = ReactDOM.createRoot(rootElement);
-  root.render(<App />);
 }
 
 // npx create-react-app my-app --template typescript

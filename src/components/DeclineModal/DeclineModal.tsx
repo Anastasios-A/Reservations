@@ -10,6 +10,8 @@ export default function DeclineModal(props: IDeclineModalProps) {
   const subject = useRef<HTMLInputElement>(null);
   const message = useRef<HTMLTextAreaElement>(null);
 
+  
+
   const { openCloseDeclineForm, sendDecline, declineModal, reservations } =
     useReservationsContext();
 
