@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from "react";
-import CalendarComponent from "../../components/TimeSlots/CalendarComponent/CalendarComponent";
-import TimeSlotsComponent from "../../components/TimeSlots/TimeSlotsComponent/TimeSlotsComponent";
+import CalendarComponent from "../CalendarComponent/CalendarComponent";
+import TimeSlotsComponent from "../TimeSlotsComponent/TimeSlotsComponent";
 import styles from "./TimeSlots.module.scss";
 import { Callout, DirectionalHint } from "@fluentui/react";
 
@@ -29,24 +29,13 @@ export default function TimeSlots() {
   return (
     <div className={styles.availableSlots}>
       <header className={styles.timeSlotsHeader}>
-        <h3>Available Slots</h3>
+        <h4>Available Slots</h4>
       </header>
       <main className={styles.availableSlotsMain}>
         {isSelectDateVisible && (
-          <Callout
-            directionalHint={DirectionalHint.rightCenter}
-            role="alertdialog"
-            target={buttonRef.current}
-            styles={{
-              root: {
-                transform: "translateX(-1px)",
-              },
-            }}
-          >
-            <section className={styles.calendarContainer}>
-              <CalendarComponent onSelectDate={handleSelectDate} />
-            </section>
-          </Callout>
+          <div className={styles.calendarPossition}>
+            <CalendarComponent onSelectDate={handleSelectDate} />
+          </div>
         )}
 
         <section className={styles.timeslotsContainer}>
@@ -54,7 +43,7 @@ export default function TimeSlots() {
             date={selectedDate}
             ref={setButtonRef}
             onTimeSlotChange={handleTimeSlotChange}
-            onBackAction={() => setIsSelectDateVisible(true)}
+            onBackAction={() => setIsSelectDateVisible(prevState => !prevState)}
           />
           <footer className={styles.buttons}>
             {/*  <button className={styles.action + " " + styles.actionDecline}>

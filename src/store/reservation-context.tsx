@@ -163,19 +163,17 @@ export default function ReservationsContextProvider(
   );
 
   const acceptReservation = useCallback(
-    (selectedCustomerID: string , subject : undefined): void => {
+    async (selectedCustomerID: string): Promise<void> => {
       const updatedReservations: IReservation[] = updateCustomerInputs(
         reservations,
-        selectedCustomerID,
-       subject
+        selectedCustomerID
       );
       const updatedSearchList = updateCustomerInputs(
         searchedCustomers,
-        selectedCustomerID,
-        subject
+        selectedCustomerID
       );
 
-      updateReservationState(
+      await updateReservationState(
         updatedReservations?.find(
           (res: IReservation) => res.id === selectedCustomerID
         )
@@ -186,7 +184,7 @@ export default function ReservationsContextProvider(
     },
     [reservations, searchedCustomers]
   );
-
+  
   const openCloseDeclineForm = (selectedCustomerID?: string): void => {
     setDeclineModal((prevState) => ({
       declinedReservationId: selectedCustomerID,

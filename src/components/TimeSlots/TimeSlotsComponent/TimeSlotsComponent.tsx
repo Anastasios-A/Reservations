@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./TimeSlotsComponent.module.scss";
-import { DefaultButton, IconButton } from "@fluentui/react";
+import { DefaultButton } from "@fluentui/react";
 
 interface TimeSlotsComponentProps {
   date: Date | null;
@@ -32,10 +32,10 @@ const TimeSlotsComponent: React.FC<TimeSlotsComponentProps> = ({
   return (
     <div className={styles.timeSlotsComp}>
       <div className={styles.titleWithBackAction}>
-        <h3>{date!.toDateString()}</h3>
+        <h4>{date!.toDateString()}</h4>
         <DefaultButton
           componentRef={ref}
-          styles={{ root: { color: "black" } }}
+          styles={{ root: { color: "black", position:'relative' } }}
           onClick={() => onBackAction()}
           text="Change date"
         />

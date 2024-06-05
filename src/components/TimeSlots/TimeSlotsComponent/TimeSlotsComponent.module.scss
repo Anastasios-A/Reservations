@@ -1,8 +1,9 @@
 .timeSlots {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  height: 300px;
-  justify-items: center;
+  background-color:#f9f9f991;
+  margin-left: 14px;
+  
 }
 
 h3 {
@@ -14,12 +15,8 @@ h3 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.279);
 }
 .timeSlot {
-  text-align: center;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   display: flex;
   gap: 10px;

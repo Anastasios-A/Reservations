@@ -9,7 +9,6 @@ export const updateReservationState = async (reservation?: IReservation): Promis
       "https://us-central1-myathenspath.cloudfunctions.net/updateReservation",
       {
         method: "POST", // directly using "POST"
-        mode: "no-cors", 
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
         },

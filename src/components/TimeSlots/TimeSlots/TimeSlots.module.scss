@@ -2,15 +2,15 @@
   display: flex;
   flex-direction: column;
   align-items: start;
-  padding: 20px;
-  //width: 85vw;
-  //position: fixed;
+  margin: 20px;
+  border-radius: 30px;
+  background-color:#f9f9f991;
+  box-shadow: 0px 4px 4px 0px rgba(33,33,33,0.25);
 }
 
 .timeSlotsHeader {
-  display: flex;
-  justify-content: space-around;
-  align-items: baseline;
+  margin-left: 20px;
+  margin-top: 10px;
 }
 
 .availableSlotsMain {
@@ -23,7 +23,7 @@
   display: flex;
   flex-direction: column;
   padding: 10px;
-  background-color: #f9f9f991;
+  background-color:#f9f9f991;
   border-radius: 30px;
   font-size: 16px;
 }
@@ -51,6 +51,17 @@
   }
 
   &Accept {
-    background-color: #5dd253;
+    background-color: #f9f9f991;
   }
+
+  &:hover {
+    background-color: #5dd253;
+    font-size: 14px;
+  }
+}
+
+.calendarPossition{
+  position: absolute;
+  right:50px;
+  bottom: 380px;
 }
