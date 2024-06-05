@@ -1,14 +1,24 @@
 import styles from "./sidePanel.module.scss";
 import logo from "../../store/logo.png";
 import ourLogo from "../../store/athensLogo.png";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import { useReservationsContext } from "../../store/reservation-context";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SettingsModal from "../SettingsModal/SettingsModal";
+import { useAuth } from "../../store/AuthProvider";
 
 export default function SidePanel() {
   const { openCloseDeclineForm } = useReservationsContext();
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+  const authContext = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const isNotLogedIn = !authContext?.user;
+    if (isNotLogedIn) {
+      navigate("/login", { replace: true });
+    }
+  }, [authContext?.user, navigate]);
 
   return (
     <div className={styles.screen}>
@@ -42,7 +52,13 @@ export default function SidePanel() {
         </section>
 
         <footer>
-          <button className={styles.sidePanelButtons + " " + styles.logout}>
+          <button
+            className={styles.sidePanelButtons + " " + styles.logout}
+            onClick={async () => {
+              authContext?.logout();
+              navigate("/login", { replace: true });
+            }}
+          >
             Log out
           </button>
         </footer>

@@ -23,18 +23,20 @@ const db = getFirestore(app);
 export default db;
 const RESERVATIONS_COLLECTION = "Reservations";
 
-
-
-export async function updateStoreTemplates(storeId: string, emailSubjectTemplate: string, emailTextTemplate: string): Promise<void> {
+export async function updateStoreTemplates(
+  storeId: string,
+  emailSubjectTemplate: string,
+  emailTextTemplate: string
+): Promise<void> {
   try {
-    const storeRef = doc(db, 'shopsDetails', 'rasdobknEsThHZMrhzy4');
+    const storeRef = doc(db, "shopsDetails", "rasdobknEsThHZMrhzy4");
     await updateDoc(storeRef, {
       emailSubjectTemplate,
-      emailTextTemplate
+      emailTextTemplate,
     });
-    console.log('Store email templates updated successfully');
+    console.log("Store email templates updated successfully");
   } catch (error) {
-    console.error('Error updating store email templates:', error);
+    console.error("Error updating store email templates:", error);
     throw error;
   }
 }
@@ -51,7 +53,8 @@ export async function getReservations(): Promise<IReservation[]> {
     }));
     console.log(documents);
     return documents as IReservation[];
-  } catch (error) {console.log(error);
+  } catch (error) {
+    console.log(error);
     throw error;
   }
 }

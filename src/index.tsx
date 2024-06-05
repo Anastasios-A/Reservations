@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
-import ReservationsContextProvider from "./store/reservation-context";
 import { ThemeProvider } from "@fluentui/react";
 
 const root = ReactDOM.createRoot(
@@ -11,11 +10,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <ThemeProvider>
-
     <React.StrictMode>
       <App />
     </React.StrictMode>
-
   </ThemeProvider>
 );
 

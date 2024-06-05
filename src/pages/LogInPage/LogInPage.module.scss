@@ -1,0 +1,35 @@
+.wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+}
+
+.header {
+  font-size: 25px;
+  font-weight: 600;
+  padding-bottom: 10px;
+}
+
+.titleWithField {
+  display: flex;
+  flex-direction: column;
+}
+.buttonContainer {
+  display: flex;
+  justify-content: end;
+}
+
+.buttonRoot {
+  margin-top: 10px;
+  border-radius: 15px;
+  background-color: rgb(250, 226, 88);
+  border: 1px solid rgb(176, 150, 0);
+}
+
+.formWrapper {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgb(196, 196, 196);
+}
