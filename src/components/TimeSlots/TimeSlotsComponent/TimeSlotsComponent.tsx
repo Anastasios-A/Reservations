@@ -3,7 +3,20 @@ import styles from "./TimeSlotsComponent.module.scss";
 
 interface TimeSlotsComponentProps {
   onTimeSlotChange: (changed: number) => void;
+  slots: number[];
   // onBackAction: () => void;
+}
+
+function generateBooleanArray(numbers: number[]): boolean[] {
+  const booleanArray = new Array(24).fill(false); // Initialize an array of 24 booleans with all false
+
+  numbers.forEach((num) => {
+    if (num >= 0 && num < 24) {
+      booleanArray[num] = true; // Set the position corresponding to the number to true
+    }
+  });
+
+  return booleanArray;
 }
 
 const TimeSlotsComponent = (props: TimeSlotsComponentProps) => {
@@ -12,8 +25,8 @@ const TimeSlotsComponent = (props: TimeSlotsComponentProps) => {
   );
 
   useEffect(() => {
-    setSelectedSlots(Array(24).fill(false));
-  }, []);
+    setSelectedSlots(generateBooleanArray(props?.slots));
+  }, [props?.slots]);
 
   const handleCheckboxChange = (index: number) => {
     const newSelectedSlots = [...selectedSlots];

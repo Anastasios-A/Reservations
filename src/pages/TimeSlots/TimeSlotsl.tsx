@@ -1,21 +1,36 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import TimeSlotsComponent from "../../components/TimeSlots/TimeSlotsComponent/TimeSlotsComponent";
 import styles from "./TimeSlots.module.scss";
+import { IStoreDetails } from "../../store/reservation-context";
 
-export default function TimeSlots() {
+interface ITimeSlotsProps {
+  setShopDetails: React.Dispatch<React.SetStateAction<IStoreDetails>>;
+  shopDetails: IStoreDetails;
+}
+
+export default function TimeSlots(props: ITimeSlotsProps) {
   const [isSaveButtonVisible, setIsSaveButtonVisible] = useState(true);
   // const [isSelectDateVisible, setIsSelectDateVisible] = useState(false);
   const [selectedTimeSlotsForTheDate, setSelectedTimeSlotsForTheDate] =
-    useState<number[]>([]);
+    useState<number[]>(props?.shopDetails?.slots);
 
-  const handleTimeSlotChange = (time: number) => {
-    setSelectedTimeSlotsForTheDate(
-      selectedTimeSlotsForTheDate.find((val: number) => val === time)
+  const handleTimeSlotChange = useCallback(
+    (time: number) => {
+      const newArray: number[] = selectedTimeSlotsForTheDate.find(
+        (val: number) => val === time
+      )
         ? selectedTimeSlotsForTheDate.filter((val: number) => val !== time)
-        : [...selectedTimeSlotsForTheDate, time]
-    );
-    setIsSaveButtonVisible(true);
-  };
+        : [...selectedTimeSlotsForTheDate, time];
+      setSelectedTimeSlotsForTheDate(newArray);
+      setIsSaveButtonVisible(true);
+      console.log("[[][][][][", newArray);
+      props?.setShopDetails({
+        ...props?.shopDetails,
+        slots: newArray,
+      });
+    },
+    [props, selectedTimeSlotsForTheDate]
+  );
 
   return (
     <div className={styles.timeslotsContainer}>
@@ -24,7 +39,10 @@ export default function TimeSlots() {
       </header>
 
       <div className={styles.timeSlotsMain}>
-        <TimeSlotsComponent onTimeSlotChange={handleTimeSlotChange} />
+        <TimeSlotsComponent
+          slots={selectedTimeSlotsForTheDate}
+          onTimeSlotChange={handleTimeSlotChange}
+        />
       </div>
 
       <footer className={styles.buttons}>

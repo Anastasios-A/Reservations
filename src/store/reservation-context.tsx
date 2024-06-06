@@ -119,7 +119,7 @@ type ReservationsContextValue = {
   searchedCustomers: IReservation[];
   acceptReservation: (customerId: string) => void;
   declineModal: IDeclineModal;
-
+  changeStoreDetails: (value: IStoreDetails) => void;
   openCloseDeclineForm: (customerId: string | undefined) => void;
   sendDecline: (
     customerId: string | undefined,
@@ -252,6 +252,10 @@ export default function ReservationsContextProvider(
     if (!!authContext?.user) fetchData(authContext?.user);
   }, [authContext?.user, fetchData]);
 
+  const changeStoreDetails = (shopDetails: IStoreDetails): void => {
+    setStoreDetails(shopDetails);
+  };
+
   const sendDecline = useCallback(
     (selectedCustomerID?: string, subject?: string, message?: string): void => {
       if (typeof selectedCustomerID === "number") {
@@ -294,6 +298,7 @@ export default function ReservationsContextProvider(
     store,
     storeDetails,
     searchCustomer,
+    changeStoreDetails,
     searchedCustomers,
     onChooseTab,
     choosenTab,

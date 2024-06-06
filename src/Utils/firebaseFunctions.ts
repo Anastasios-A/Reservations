@@ -4,6 +4,7 @@ import {
   getDocs,
   getFirestore,
   query,
+  setDoc,
   updateDoc,
   where,
 } from "firebase/firestore";
@@ -75,9 +76,29 @@ export async function getStoreDetails(storeId: string): Promise<IStoreDetails> {
     );
     const querySnapshot = await getDocs(q);
     console.log(querySnapshot.docs, storeId);
-    return querySnapshot.docs[0].data() as IStoreDetails;
+    return {
+      ...querySnapshot.docs[0].data(),
+      id: querySnapshot.docs[0].id,
+    } as IStoreDetails;
   } catch (error) {
     console.log(error);
+    throw error;
+  }
+}
+export async function updateStoreDetails(
+  storeDetails: IStoreDetails
+): Promise<void> {
+  try {
+    const storeDocRef = doc(db, STORES_DETAILS_COLLECTION, storeDetails.id);
+    await setDoc(storeDocRef, storeDetails, { merge: true });
+    console.log(
+      `Store details for ${storeDetails.storeId} updated successfully`
+    );
+  } catch (error) {
+    console.log(
+      `Error updating store details for ${storeDetails.storeId}:`,
+      error
+    );
     throw error;
   }
 }
