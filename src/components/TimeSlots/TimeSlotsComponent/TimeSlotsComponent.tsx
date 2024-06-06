@@ -5,7 +5,7 @@ import { DefaultButton } from "@fluentui/react";
 interface TimeSlotsComponentProps {
   date: Date | null;
   onTimeSlotChange: (changed: number) => void;
-  onBackAction: () => void;
+  // onBackAction: () => void;
 }
 
 const TimeSlotsComponent = (props: TimeSlotsComponentProps) => {
@@ -26,14 +26,6 @@ const TimeSlotsComponent = (props: TimeSlotsComponentProps) => {
   };
   return (
     <div className={styles.timeSlotsComp}>
-      <div className={styles.titleWithBackAction}>
-        <h3>{props?.date?.toDateString()}</h3>
-        <DefaultButton
-          styles={{ root: { color: "black" } }}
-          onClick={() => props?.onBackAction()}
-          text="Change date"
-        />
-      </div>
       <main className={styles.timeSlots}>
         {Array.from({ length: 24 }, (_, index) => (
           <div className={styles.timeSlot} key={index}>
