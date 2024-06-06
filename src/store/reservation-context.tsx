@@ -6,9 +6,12 @@ import {
   useEffect,
   useState,
 } from "react";
-//import dummyReservationsData from "./DUMMY_RESERVATIONS.json";
 import { updateReservationState } from "../Utils/updateReservationFunction";
-import { getReservations } from "../Utils/firebaseFunctions";
+import {
+  getReservations,
+  getStore,
+  getStoreDetails,
+} from "../Utils/firebaseFunctions";
 import { useAuth } from "./AuthProvider";
 
 export enum CustomerStatusEnum {
@@ -24,6 +27,31 @@ export enum ChoosenTab {
   Declined = "declined",
 }
 
+export interface IStore {
+  id?: string;
+  name: string;
+  description: string;
+  budget: string;
+  lat?: number;
+  lng?: number;
+  isFood: boolean;
+  days?: string[];
+  categories?: string[];
+  supportsReservation?: boolean;
+}
+
+export class Store implements IStore {
+  id?: string;
+  name: string = "";
+  description: string = "";
+  budget: string = "";
+  lat?: number;
+  lng?: number;
+  isFood: boolean = false;
+  days?: string[];
+  categories?: string[];
+  supportsReservation?: boolean;
+}
 export interface IStoreDetails {
   id: string;
   storeId: string;
@@ -83,6 +111,8 @@ const mapStatusToEnum = (status: string): CustomerStatusEnum => {
 
 type ReservationsContextValue = {
   reservations: IReservation[];
+  store: IStore;
+  storeDetails: IStoreDetails;
   onChooseTab: (choosenTab: ChoosenTab) => void;
   choosenTab: ChoosenTab;
   searchCustomer: (searchTerm: string) => void;
@@ -134,6 +164,11 @@ export default function ReservationsContextProvider(
 
   const [reservations, setReservations] = useState<IReservation[]>([]);
   const [searchedCustomers, setSearchedCustomer] = useState<IReservation[]>([]);
+  const [store, setStore] = useState<IStore>(new Store());
+  const [storeDetails, setStoreDetails] = useState<IStoreDetails>(
+    new StoreDetails()
+  );
+
   const [choosenTab, setChoosenTab] = useState(ChoosenTab.All);
   const [declineModal, setDeclineModal] = useState<IDeclineModal>({
     declinedReservationId: undefined,
@@ -189,25 +224,32 @@ export default function ReservationsContextProvider(
     }));
   };
 
-  const fetchData = useCallback(async () => {
+  const fetchData = useCallback(async (storeEmail: string) => {
     try {
-      // Make API call to fetch reservations
-      const response: IReservation[] = await getReservations();
-      console.log("gettting");
-      setReservations(
-        response.map((customer: any) => ({
-          ...customer,
-          date: new Date(customer.date),
-          status: mapStatusToEnum(customer.status),
-        }))
-      );
+      const store: IStore = await getStore(storeEmail);
+      console.log("Store ", store);
+      if (store?.id) {
+        const storeDetails: IStoreDetails = await getStoreDetails(store?.id);
+        console.log("storeDetails ", storeDetails);
+        const reservations: IReservation[] = await getReservations(store?.id);
+        console.log("reservations ", reservations);
+        setStore(store);
+        setStoreDetails(storeDetails);
+        setReservations(
+          reservations.map((customer: any) => ({
+            ...customer,
+            date: new Date(customer.date),
+            status: mapStatusToEnum(customer.status),
+          }))
+        );
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   }, []);
 
   useEffect(() => {
-    if (!!authContext?.user) fetchData();
+    if (!!authContext?.user) fetchData(authContext?.user);
   }, [authContext?.user, fetchData]);
 
   const sendDecline = useCallback(
@@ -249,6 +291,8 @@ export default function ReservationsContextProvider(
 
   const ctx: ReservationsContextValue = {
     reservations,
+    store,
+    storeDetails,
     searchCustomer,
     searchedCustomers,
     onChooseTab,
