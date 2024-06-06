@@ -1,28 +1,16 @@
 .timeSlots {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  height: 190px;
+  grid-template-columns: repeat(3, 1fr);
   justify-items: center;
+  margin-left: 13px;
 }
 
-h3 {
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-.titleWithBackAction {
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.279);
-}
+
 .timeSlot {
-  text-align: center;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   display: flex;
-  gap: 10px;
+  gap: 12px;
+  margin: 3px;
 }
 
 .timeSlotText {

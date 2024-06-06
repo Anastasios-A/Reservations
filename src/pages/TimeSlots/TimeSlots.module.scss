@@ -1,31 +1,25 @@
-.availableSlots {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  padding: 20px;
-  //width: 85vw;
-  //position: fixed;
+
+.header {
+  margin: 10px 10px;
 }
 
-.timeSlotsHeader {
-  display: flex;
-  justify-content: space-around;
-  align-items: baseline;
-}
-
-.availableSlotsMain {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
 
 .timeslotsContainer {
   display: flex;
+  width: 95%;
+  height: 80%;
   flex-direction: column;
   padding: 10px;
   background-color: #f9f9f991;
   border-radius: 30px;
   font-size: 16px;
+  box-shadow: -6px 5px 4px 0px rgba(33, 33, 33, 0.25);
+}
+
+
+.timeSlotsMain{
+  margin: 20px 10px;
+  height: 60%;
 }
 
 .buttons {
@@ -33,8 +27,6 @@
   justify-content: end;
   align-items: center;
   flex: 1;
-  border-radius: 0 0 30px 30px;
-  padding: 10px;
 }
 
 .action {
@@ -42,15 +34,11 @@
   border-radius: 15px;
   width: 100px;
   height: 35px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
-
-  &Decline {
-    background-color: #b1b1b1;
-    margin-right: 15px;
-  }
+  margin-right: 20px;
 
   &Accept {
-    background-color: #5dd253;
+    background-color: #aeaeae;
   }
 }

@@ -7,13 +7,13 @@ import { Modal } from "@fluentui/react";
 export default function TimeSlots() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [isSaveButtonVisible, setIsSaveButtonVisible] = useState(true);
-  const [isSelectDateVisible, setIsSelectDateVisible] = useState(false);
+  // const [isSelectDateVisible, setIsSelectDateVisible] = useState(false);
   const [selectedTimeSlotsForTheDate, setSelectedTimeSlotsForTheDate] =
     useState<number[]>([]);
 
   const handleSelectDate = (date: Date) => {
     setSelectedDate(date);
-    setIsSelectDateVisible(false);
+    // setIsSelectDateVisible(false);
     setIsSaveButtonVisible(false); // Hide save button when date changes
   };
 
@@ -27,37 +27,29 @@ export default function TimeSlots() {
   };
 
   return (
-    <div className={styles.availableSlots}>
-      <header className={styles.timeSlotsHeader}>
-        <h3>Available Slots</h3>
-      </header>
-      <main className={styles.availableSlotsMain}>
-        {isSelectDateVisible && (
-          <Modal onDismiss={() => setIsSelectDateVisible(false)} isOpen={true}>
-            <section className={styles.calendarContainer}>
-              <CalendarComponent onSelectDate={handleSelectDate} />
-            </section>
-          </Modal>
-        )}
+    <div className={styles.timeslotsContainer}>
 
-        <section className={styles.timeslotsContainer}>
-          <TimeSlotsComponent
-            date={selectedDate}
-            onTimeSlotChange={handleTimeSlotChange}
-            onBackAction={() => setIsSelectDateVisible(true)}
-          />
-          <footer className={styles.buttons}>
-            {isSaveButtonVisible && (
-              <button
-                className={styles.action + " " + styles.actionAccept}
-                onClick={() => alert("Save changes")}
-              >
-                Save
-              </button>
-            )}
-          </footer>
-        </section>
+<header className={styles.header}>
+        <h3>Ρυθμίσεις Email</h3></header>
+
+
+      <main className={styles.timeSlotsMain}>
+        <TimeSlotsComponent
+          date={selectedDate}
+          onTimeSlotChange={handleTimeSlotChange}
+        />
       </main>
+
+      <footer className={styles.buttons}>
+        {isSaveButtonVisible && (
+          <button
+            className={styles.action + " " + styles.actionAccept}
+            onClick={() => alert("clear changes")}
+          >
+            Καθαρισμός
+          </button>
+        )}
+      </footer>
     </div>
   );
 }

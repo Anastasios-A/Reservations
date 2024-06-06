@@ -1,0 +1,68 @@
+.form {
+  width: 95%;
+  height: 80%;
+  background-color: #f9f9f991;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  box-shadow: -6px 5px 4px 0px rgba(33, 33, 33, 0.25);
+  border-radius: 30px;
+}
+
+.header {
+    margin: 10px 10px;
+}
+
+.emailReciver {
+  display: flex;
+  flex-direction: column;
+}
+.smallLabel {
+    margin: 20px 10px;
+}
+
+.label {
+    margin: 20px 10px;
+}
+
+.input {
+  height: 38px;
+  width: 80%;
+  min-width: 310px;
+  box-shadow: 0px 4px 4px 0px rgba(33, 33, 33, 0.25);
+  background-color: #f9f9f991;
+  border: none;
+  resize: none;
+  border: none;
+  outline: none;
+  border-radius: 12px;
+  font-size: 16px;
+}
+
+.bigInput {
+  box-shadow: 0px 4px 4px 0px rgba(33, 33, 33, 0.25);
+  background-color: #f9f9f991;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  align-self: center;
+  padding: 2rem;
+  resize: none;
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 40%;
+  
+}
+
+.subject {
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+//   background-color: red;
+}
