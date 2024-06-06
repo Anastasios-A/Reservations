@@ -1,42 +1,36 @@
 import React, { useState, useEffect } from "react";
 import styles from "./TimeSlotsComponent.module.scss";
-import { DefaultButton, IconButton } from "@fluentui/react";
+import { DefaultButton } from "@fluentui/react";
 
 interface TimeSlotsComponentProps {
   date: Date | null;
-  onTimeSlotChange: (changed: boolean) => void;
+  onTimeSlotChange: (changed: number) => void;
   onBackAction: () => void;
-  ref: any;
 }
 
-const TimeSlotsComponent: React.FC<TimeSlotsComponentProps> = ({
-  date,
-  onTimeSlotChange,
-  onBackAction,
-  ref,
-}) => {
+const TimeSlotsComponent = (props: TimeSlotsComponentProps) => {
   const [selectedSlots, setSelectedSlots] = useState<boolean[]>(
     Array(24).fill(false)
   );
 
   useEffect(() => {
     setSelectedSlots(Array(24).fill(false));
-  }, [date]);
+  }, [props?.date]);
 
   const handleCheckboxChange = (index: number) => {
     const newSelectedSlots = [...selectedSlots];
     newSelectedSlots[index] = !newSelectedSlots[index];
     setSelectedSlots(newSelectedSlots);
-    onTimeSlotChange(true);
+    console.log(index);
+    props?.onTimeSlotChange(index);
   };
   return (
     <div className={styles.timeSlotsComp}>
       <div className={styles.titleWithBackAction}>
-        <h3>{date!.toDateString()}</h3>
+        <h3>{props?.date?.toDateString()}</h3>
         <DefaultButton
-          componentRef={ref}
           styles={{ root: { color: "black" } }}
-          onClick={() => onBackAction()}
+          onClick={() => props?.onBackAction()}
           text="Change date"
         />
       </div>
@@ -50,9 +44,7 @@ const TimeSlotsComponent: React.FC<TimeSlotsComponentProps> = ({
               onChange={() => handleCheckboxChange(index)}
             />
             <div className={styles.timeSlotText}>
-              {` ${" "} ${String(index).padStart(2, "0")}:00 - ${String(
-                index + 1
-              ).padStart(2, "0")}:00`}
+              {`${String(index).padStart(2, "0")}:00`}
             </div>
           </div>
         ))}

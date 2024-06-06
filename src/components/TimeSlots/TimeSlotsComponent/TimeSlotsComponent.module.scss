@@ -1,7 +1,7 @@
 .timeSlots {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  height: 300px;
+  grid-template-columns: repeat(7, 1fr);
+  height: 190px;
   justify-items: center;
 }
 
@@ -30,6 +30,6 @@ h3 {
   align-self: center;
 }
 
-.checkbox {
+/* .checkbox {
   transform: scale(1.8);
-}
+} */

@@ -9,7 +9,6 @@ import { DefaultButton } from "@fluentui/react";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
   const authContext = useAuth();
   const navigate = useNavigate();
 
@@ -35,14 +34,14 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          {error && <p>{error}</p>}
           <div className={styles.buttonContainer}>
             <DefaultButton
               styles={{ root: styles.buttonRoot }}
               text="Log in"
-              onClick={() => {
-                authContext?.login(email, password);
-                navigate("/", { replace: true });
+              onClick={async () => {
+                const logedInEmail: string | undefined =
+                  await authContext?.login(email, password);
+                if (logedInEmail) navigate("/home", { replace: true });
               }}
             />
           </div>

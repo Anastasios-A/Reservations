@@ -22,6 +22,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 export default db;
 const RESERVATIONS_COLLECTION = "Reservations";
+const STORES_DETAILS_COLLECTION = "shopsDetails";
 
 export async function updateStoreTemplates(
   storeId: string,
@@ -40,6 +41,9 @@ export async function updateStoreTemplates(
     throw error;
   }
 }
+
+/* export async function getShopDetails(): Promise<IStoreDetails> {
+} */
 
 export async function getReservations(): Promise<IReservation[]> {
   try {

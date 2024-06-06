@@ -1,20 +1,15 @@
-import { useCallback, useRef, useState } from "react";
+import { useState } from "react";
 import CalendarComponent from "../../components/TimeSlots/CalendarComponent/CalendarComponent";
 import TimeSlotsComponent from "../../components/TimeSlots/TimeSlotsComponent/TimeSlotsComponent";
 import styles from "./TimeSlots.module.scss";
-import { Callout, DirectionalHint } from "@fluentui/react";
+import { Modal } from "@fluentui/react";
 
 export default function TimeSlots() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [isSaveButtonVisible, setIsSaveButtonVisible] = useState(true);
   const [isSelectDateVisible, setIsSelectDateVisible] = useState(false);
-
-  const buttonRef = useRef(null);
-  const setButtonRef = useCallback((node: any) => {
-    if (node !== null) {
-      buttonRef.current = node;
-    }
-  }, []);
+  const [selectedTimeSlotsForTheDate, setSelectedTimeSlotsForTheDate] =
+    useState<number[]>([]);
 
   const handleSelectDate = (date: Date) => {
     setSelectedDate(date);
@@ -22,8 +17,13 @@ export default function TimeSlots() {
     setIsSaveButtonVisible(false); // Hide save button when date changes
   };
 
-  const handleTimeSlotChange = (changed: boolean) => {
-    setIsSaveButtonVisible(changed);
+  const handleTimeSlotChange = (time: number) => {
+    setSelectedTimeSlotsForTheDate(
+      selectedTimeSlotsForTheDate.find((val: number) => val === time)
+        ? selectedTimeSlotsForTheDate.filter((val: number) => val !== time)
+        : [...selectedTimeSlotsForTheDate, time]
+    );
+    setIsSaveButtonVisible(true);
   };
 
   return (
@@ -33,33 +33,20 @@ export default function TimeSlots() {
       </header>
       <main className={styles.availableSlotsMain}>
         {isSelectDateVisible && (
-          <Callout
-            directionalHint={DirectionalHint.rightCenter}
-            role="alertdialog"
-            target={buttonRef.current}
-            styles={{
-              root: {
-                transform: "translateX(-1px)",
-              },
-            }}
-          >
+          <Modal onDismiss={() => setIsSelectDateVisible(false)} isOpen={true}>
             <section className={styles.calendarContainer}>
               <CalendarComponent onSelectDate={handleSelectDate} />
             </section>
-          </Callout>
+          </Modal>
         )}
 
         <section className={styles.timeslotsContainer}>
           <TimeSlotsComponent
             date={selectedDate}
-            ref={setButtonRef}
             onTimeSlotChange={handleTimeSlotChange}
             onBackAction={() => setIsSelectDateVisible(true)}
           />
           <footer className={styles.buttons}>
-            {/*  <button className={styles.action + " " + styles.actionDecline}>
-              Cancel
-            </button> */}
             {isSaveButtonVisible && (
               <button
                 className={styles.action + " " + styles.actionAccept}

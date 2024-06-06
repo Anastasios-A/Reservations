@@ -15,8 +15,11 @@ export default function SidePanel() {
 
   useEffect(() => {
     const isNotLogedIn = !authContext?.user;
+    console.log(authContext?.user);
     if (isNotLogedIn) {
       navigate("/login", { replace: true });
+    } else {
+      navigate("/home", { replace: true });
     }
   }, [authContext?.user, navigate]);
 

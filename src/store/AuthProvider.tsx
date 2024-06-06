@@ -7,7 +7,7 @@ import {
 import { ReactNode, createContext, useContext, useState } from "react";
 
 type AuthContextValue = {
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<string>;
   logout: () => Promise<void>;
   user: any;
 };
@@ -22,7 +22,7 @@ export default function AuthProvider(props: IAuthProviderProps) {
   );
 
   // call this function when you want to authenticate the user
-  const login = async (email: string, password: string) => {
+  const login = async (email: string, password: string): Promise<string> => {
     try {
       const auth = getAuth();
       const userCredential: UserCredential = await signInWithEmailAndPassword(
@@ -32,12 +32,12 @@ export default function AuthProvider(props: IAuthProviderProps) {
       );
       console.log(userCredential);
       localStorage.setItem("loggedInEmail", email);
-
+      setUser(email);
+      return email;
       // If successful, you can redirect the user to another page or do something else
     } catch (error: any) {
       throw error;
     }
-    setUser(email);
   };
 
   // call this function to sign out logged in user

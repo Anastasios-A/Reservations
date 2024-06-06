@@ -18,7 +18,7 @@ export default function App() {
             <Routes>
               <Route path="/login" element={<LoginPage />} />
               <Route path="/" element={<SidePanel />}>
-                <Route index element={<HomePage />} />
+                <Route path="/home" element={<HomePage />} />
               </Route>
             </Routes>
           </ReservationsContextProvider>

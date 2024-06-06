@@ -9,6 +9,7 @@ import {
 //import dummyReservationsData from "./DUMMY_RESERVATIONS.json";
 import { updateReservationState } from "../Utils/updateReservationFunction";
 import { getReservations } from "../Utils/firebaseFunctions";
+import { useAuth } from "./AuthProvider";
 
 export enum CustomerStatusEnum {
   Pending = "pending",
@@ -21,6 +22,30 @@ export enum ChoosenTab {
   Pending = "pending",
   Accepted = "accepted",
   Declined = "declined",
+}
+
+export interface IStoreDetails {
+  id: string;
+  storeId: string;
+  slots: number[];
+  discount: number;
+  email: string;
+  emailSubjectTemplate: string;
+  emailTextTemplate: string;
+  logoUrl: string;
+  menuUrl: string;
+}
+
+export class StoreDetails implements IStoreDetails {
+  id: string = "";
+  storeId: string = "";
+  slots: number[] = [];
+  discount: number = 0;
+  email: string = "";
+  emailSubjectTemplate: string = "";
+  emailTextTemplate: string = "";
+  logoUrl: string = "";
+  menuUrl: string = "";
 }
 
 export interface IReservation {
@@ -43,10 +68,6 @@ export interface IDeclineModal {
   modalIsOpen: boolean;
 }
 
-
-
-
-
 const mapStatusToEnum = (status: string): CustomerStatusEnum => {
   switch (status) {
     case "pending":
@@ -59,8 +80,6 @@ const mapStatusToEnum = (status: string): CustomerStatusEnum => {
       throw new Error(`Unknown status: ${status}`);
   }
 };
-
-
 
 type ReservationsContextValue = {
   reservations: IReservation[];
@@ -77,7 +96,7 @@ type ReservationsContextValue = {
     subject?: string,
     message?: string
   ) => void;
-}
+};
 
 const ReservationsContext = createContext<ReservationsContextValue | null>(
   null
@@ -111,14 +130,11 @@ const updateCustomerInputs = (
 export default function ReservationsContextProvider(
   props: IReservationsContextProviderProps
 ) {
-  const [reservations, setReservations] =
+  const authContext = useAuth();
 
-    useState<IReservation[]>([]);
+  const [reservations, setReservations] = useState<IReservation[]>([]);
   const [searchedCustomers, setSearchedCustomer] = useState<IReservation[]>([]);
-
-
   const [choosenTab, setChoosenTab] = useState(ChoosenTab.All);
-
   const [declineModal, setDeclineModal] = useState<IDeclineModal>({
     declinedReservationId: undefined,
     modalIsOpen: false,
@@ -154,7 +170,11 @@ export default function ReservationsContextProvider(
         selectedCustomerID
       );
 
-      updateReservationState(updatedReservations?.find((res : IReservation)=> res.id === selectedCustomerID));
+      updateReservationState(
+        updatedReservations?.find(
+          (res: IReservation) => res.id === selectedCustomerID
+        )
+      );
       setReservations(updatedReservations);
       setSearchedCustomer(updatedSearchList);
       console.log(reservations);
@@ -162,10 +182,8 @@ export default function ReservationsContextProvider(
     [reservations, searchedCustomers]
   );
 
-
   const openCloseDeclineForm = (selectedCustomerID?: string): void => {
     setDeclineModal((prevState) => ({
-
       declinedReservationId: selectedCustomerID,
       modalIsOpen: !prevState.modalIsOpen,
     }));
@@ -175,23 +193,24 @@ export default function ReservationsContextProvider(
     try {
       // Make API call to fetch reservations
       const response: IReservation[] = await getReservations();
-
-      setReservations(response.map((customer: any) => ({
-        ...customer,
-        date: new Date(customer.date),
-        status: mapStatusToEnum(customer.status),
-      })));
+      console.log("gettting");
+      setReservations(
+        response.map((customer: any) => ({
+          ...customer,
+          date: new Date(customer.date),
+          status: mapStatusToEnum(customer.status),
+        }))
+      );
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   }, []);
 
   useEffect(() => {
-    fetchData()
-  }, [fetchData]);
+    if (!!authContext?.user) fetchData();
+  }, [authContext?.user, fetchData]);
 
   const sendDecline = useCallback(
-
     (selectedCustomerID?: string, subject?: string, message?: string): void => {
       if (typeof selectedCustomerID === "number") {
         const updatedReservations = updateCustomerInputs(
