@@ -1,4 +1,4 @@
-import { Modal } from "@fluentui/react";
+import { IIconProps, IconButton, Modal } from "@fluentui/react";
 import styles from "./SettingsModal.module.scss";
 
 import TimeSlots from "../../pages/TimeSlots/TimeSlotsl";
@@ -7,6 +7,7 @@ import EmailSettings from "../EmailSettings/EmailSettings";
 interface ISettingsModalProps {
   onDismiss: () => void;
 }
+const CancelIcon: IIconProps = { iconName: "Cancel" };
 
 export default function SettingsModal(props: ISettingsModalProps) {
   return (
@@ -17,8 +18,8 @@ export default function SettingsModal(props: ISettingsModalProps) {
     >
       <div className={styles.settingsModal}>
         <header>
-          <h1>Settings</h1>
-          <button>X</button>
+          <div className={styles.title}>Ρυθμίσεις</div>
+          <IconButton iconProps={CancelIcon} onClick={props?.onDismiss} />
         </header>
 
         <main>
@@ -29,7 +30,7 @@ export default function SettingsModal(props: ISettingsModalProps) {
             <EmailSettings />
           </div>
         </main>
-        
+
         <footer className={styles.footerButtons}>
           <button className={`${styles.button} ${styles.cancel}`}>
             Ακύρωση

@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "./TimeSlotsComponent.module.scss";
-import { DefaultButton } from "@fluentui/react";
 
 interface TimeSlotsComponentProps {
-  date: Date | null;
   onTimeSlotChange: (changed: number) => void;
   // onBackAction: () => void;
 }
@@ -15,7 +13,7 @@ const TimeSlotsComponent = (props: TimeSlotsComponentProps) => {
 
   useEffect(() => {
     setSelectedSlots(Array(24).fill(false));
-  }, [props?.date]);
+  }, []);
 
   const handleCheckboxChange = (index: number) => {
     const newSelectedSlots = [...selectedSlots];

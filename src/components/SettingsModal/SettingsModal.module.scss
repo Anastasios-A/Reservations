@@ -1,20 +1,28 @@
 .container {
   max-height: 100%;
-  width: 92vw;
+  width: 80vw;
   border-radius: 10px;
-  padding: 20px;
+  padding: 10px;
 }
 
 .settingsModal {
-  height: 90vh;
+  //height: 90vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
   grid-template-columns: 1fr 1fr;
   gap: 16px; /* Optional: Adjust the gap between elements */
 }
+.title {
+  font-size: 30px;
+  font-weight: 500;
+  padding-left: 10px;
+}
+
+.header {
+  background-color: #fa6b6b;
+}
 
 .settingsModal > header {
-  margin-right: 20px;
   grid-column: span 2; /* Span the header across both columns */
   display: flex;
   justify-content: space-between;
@@ -28,6 +36,7 @@
 .timeSlots {
   display: flex;
   justify-content: center;
+  height: fit-content;
 }
 
 .settingsModal > footer {

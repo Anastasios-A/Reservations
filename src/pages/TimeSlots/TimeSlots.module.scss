@@ -1,32 +1,35 @@
-
 .header {
   margin: 10px 10px;
 }
 
-
 .timeslotsContainer {
   display: flex;
   width: 95%;
-  height: 80%;
   flex-direction: column;
   padding: 10px;
-  background-color: #f9f9f991;
-  border-radius: 30px;
+  background-color: white;
+
+  border-radius: 18px;
   font-size: 16px;
-  box-shadow: -6px 5px 4px 0px rgba(33, 33, 33, 0.25);
+  box-shadow: -2px 2px 7px 0px rgba(33, 33, 33, 0.25);
+  border: 1px solid rgba(128, 128, 128, 0.151);
 }
 
+.timeSlotsMain {
+  margin: 5 5px;
+  overflow: scroll;
+}
 
-.timeSlotsMain{
-  margin: 20px 10px;
-  height: 60%;
+.title {
+  font-size: 25px;
+  font-weight: 400;
 }
 
 .buttons {
   display: flex;
   justify-content: end;
   align-items: center;
-  flex: 1;
+  // flex: 1;
 }
 
 .action {

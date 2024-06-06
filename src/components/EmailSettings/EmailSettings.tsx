@@ -1,33 +1,43 @@
+import { TextField } from "@fluentui/react";
 import styles from "./EmailSettings.module.scss";
 
 export default function EmailSettings() {
   return (
     <form className={styles.form}>
       <header className={styles.header}>
-        <h3>Ρυθμίσεις Email</h3></header>
+        <div className={styles.title}>Ρυθμίσεις Email</div>
+      </header>
 
-      <main>
+      <div>
         <div className={styles.emailReciver}>
-          <label className={styles.smallLabel} htmlFor="email">
-            Email καταστήματος (εδω θα λαμβάνεται τις κρατήσεις)
-          </label>
-          <input className={styles.input} type="text" id="email" />
+          <TextField
+            label="Email καταστήματος (εδω θα λαμβάνεται τις κρατήσεις)"
+            styles={{
+              fieldGroup: styles.input,
+            }}
+          />
         </div>
 
         <div className={styles.subject}>
-          <label htmlFor="subject" className={styles.label}>
-            Θέμα email
-          </label>
-          <input className={styles.input} type="text" id="subject" />
+          <TextField
+            label="Θέμα email"
+            styles={{
+              fieldGroup: styles.input,
+            }}
+          />
         </div>
 
-        <div className={styles.message}>
-          <label htmlFor="message" className={styles.label}>
-            Περιεχόμενο email
-          </label>
-          <textarea className={styles.bigInput}  id="message" />
-        </div>
-      </main>
+        <TextField
+          label="Περιεχόμενο email"
+          multiline
+          //     autoAdjustHeight
+          rows={3}
+          styles={{
+            fieldGroup: styles.bigInput,
+            field: { height: "100%" },
+          }}
+        />
+      </div>
     </form>
   );
 }
