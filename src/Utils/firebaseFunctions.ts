@@ -13,7 +13,7 @@ import {
   IReservation,
   IStore,
   IStoreDetails,
-} from "../store/reservation-context";
+} from "../Models/Context Models"
 const firebaseKey = process.env.REACT_APP_API_KEY;
 
 const firebaseConfig = {

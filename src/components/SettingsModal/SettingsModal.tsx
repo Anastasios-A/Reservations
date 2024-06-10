@@ -9,12 +9,10 @@ import styles from "./SettingsModal.module.scss";
 
 import TimeSlots from "../../pages/TimeSlots/TimeSlotsl";
 import EmailSettings from "../EmailSettings/EmailSettings";
-import {
-  IStoreDetails,
-  useReservationsContext,
-} from "../../store/reservation-context";
+import { useReservationsContext } from "../../store/reservation-context";
 import { useCallback, useState } from "react";
 import { updateStoreDetails } from "../../Utils/firebaseFunctions";
+import { IStoreDetails } from "../../Models/Context Models";
 
 interface ISettingsModalProps {
   onDismiss: () => void;

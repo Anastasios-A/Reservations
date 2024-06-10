@@ -1,15 +1,10 @@
-import {
-  CustomerStatusEnum,
-  IReservation,
-  useReservationsContext,
-} from "../../store/reservation-context";
+import { CustomerStatusEnum, IReservation } from "../../Models/Context Models";
+import { useReservationsContext } from "../../store/reservation-context";
 
 import styles from "./ReservationItem.module.scss";
 
-
 export default function ReservationItem(props: IReservation) {
   const { acceptReservation, openCloseDeclineForm } = useReservationsContext();
-
 
   return (
     <div className={styles.item}>
@@ -54,7 +49,9 @@ export default function ReservationItem(props: IReservation) {
 
         <button
           className={`${styles.action} ${styles.actionDecline} ${
-           props.status ===  CustomerStatusEnum.Declined ? styles.actionDisabledOff : ""
+            props.status === CustomerStatusEnum.Declined
+              ? styles.actionDisabledOff
+              : ""
           } `}
           onClick={() => openCloseDeclineForm(props.id)}
         >
@@ -64,4 +61,3 @@ export default function ReservationItem(props: IReservation) {
     </div>
   );
 }
-

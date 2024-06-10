@@ -2,10 +2,10 @@ import {
   ChoosenTab,
   CustomerStatusEnum,
   IReservation,
-  useReservationsContext,
-} from "../../store/reservation-context";
+} from "../../Models/Context Models";
+import { useReservationsContext } from "../../store/reservation-context";
 import ReservationItem from "../ReservationItem/ReservationItem";
-import styles from "./ReservationList.module.scss"
+import styles from "./ReservationList.module.scss";
 
 export default function ReservationList() {
   const { reservations, choosenTab, searchedCustomers } =
@@ -18,7 +18,7 @@ export default function ReservationList() {
       filteredReservations = reservations;
     } else {
       filteredReservations = reservations.filter(
-        (res) => res.status === choosenTab as unknown as  CustomerStatusEnum
+        (res) => res.status === (choosenTab as unknown as CustomerStatusEnum)
       );
     }
   } else {
@@ -26,7 +26,7 @@ export default function ReservationList() {
       filteredReservations = searchedCustomers;
     } else {
       filteredReservations = searchedCustomers.filter(
-        (res) => res.status === choosenTab as unknown as CustomerStatusEnum
+        (res) => res.status === (choosenTab as unknown as CustomerStatusEnum)
       );
     }
   }

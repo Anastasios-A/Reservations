@@ -3,8 +3,8 @@ import {
   ChoosenTab,
   CustomerStatusEnum,
   IReservation,
-  useReservationsContext,
-} from "../../store/reservation-context";
+} from "../../Models/Context Models";
+import { useReservationsContext } from "../../store/reservation-context";
 
 export default function Tabs() {
   interface IReduceAccumulator {
@@ -35,24 +35,53 @@ export default function Tabs() {
   return (
     <div className={styles.tabs}>
       <main className={styles.tabButtons}>
-        <button className={`${styles.button} ${choosenTab === ChoosenTab.All ? styles.active : ''}`} onClick={() => onChooseTab(ChoosenTab.All)}>
-          All <div className={styles.buttonSum }> {reservations.length} </div>
+        <button
+          className={`${styles.button} ${
+            choosenTab === ChoosenTab.All ? styles.active : ""
+          }`}
+          onClick={() => onChooseTab(ChoosenTab.All)}
+        >
+          All <div className={styles.buttonSum}> {reservations.length} </div>
         </button>
-  
-        <button className={`${styles.button} ${styles.buttonPending} ${choosenTab === ChoosenTab.Pending ? styles.active : ''}`} onClick={() => onChooseTab(ChoosenTab.Pending)}>
-          Pending <div className={styles.buttonSum + " " +  styles.buttonSumPending}> {reservationsSum.pending}</div>
+
+        <button
+          className={`${styles.button} ${styles.buttonPending} ${
+            choosenTab === ChoosenTab.Pending ? styles.active : ""
+          }`}
+          onClick={() => onChooseTab(ChoosenTab.Pending)}
+        >
+          Pending{" "}
+          <div className={styles.buttonSum + " " + styles.buttonSumPending}>
+            {" "}
+            {reservationsSum.pending}
+          </div>
         </button>
-  
-        <button className={`${styles.button}  ${styles.buttonAccepted}  ${choosenTab === ChoosenTab.Accepted ? styles.active : ''}`} onClick={() => onChooseTab(ChoosenTab.Accepted)}>
-          Accepted <div className={styles.buttonSum + " " +  styles.buttonSumAccepted}>{reservationsSum.accepted}</div>
+
+        <button
+          className={`${styles.button}  ${styles.buttonAccepted}  ${
+            choosenTab === ChoosenTab.Accepted ? styles.active : ""
+          }`}
+          onClick={() => onChooseTab(ChoosenTab.Accepted)}
+        >
+          Accepted{" "}
+          <div className={styles.buttonSum + " " + styles.buttonSumAccepted}>
+            {reservationsSum.accepted}
+          </div>
         </button>
-  
-        <button className={`${styles.button}  ${styles.buttonDeclined}  ${choosenTab === ChoosenTab.Declined ? styles.active : ''}`} onClick={() => onChooseTab(ChoosenTab.Declined)}>
-          Declined <div className={styles.buttonSum + " " +  styles.buttonSumDeclined}> {reservationsSum.declined}</div>
+
+        <button
+          className={`${styles.button}  ${styles.buttonDeclined}  ${
+            choosenTab === ChoosenTab.Declined ? styles.active : ""
+          }`}
+          onClick={() => onChooseTab(ChoosenTab.Declined)}
+        >
+          Declined{" "}
+          <div className={styles.buttonSum + " " + styles.buttonSumDeclined}>
+            {" "}
+            {reservationsSum.declined}
+          </div>
         </button>
       </main>
     </div>
   );
-  
-}       
-
+}
