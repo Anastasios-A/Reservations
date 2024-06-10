@@ -64,7 +64,7 @@ export default function SettingsModal(props: ISettingsModalProps) {
         </main>
 
         <footer className={styles.footerButtons}>
-          <button className={`${styles.button} ${styles.cancel}`}>
+          <button className={`${styles.button} ${styles.cancel}`} onClick={props.onDismiss}>
             Ακύρωση
           </button>
           <button

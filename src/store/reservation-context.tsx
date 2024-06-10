@@ -145,7 +145,7 @@ export default function ReservationsContextProvider(
     [reservations, searchedCustomers]
   );
 
-  const openCloseDeclineForm = (selectedCustomerID?: string): void => {
+  const openCloseDeclineForm = (selectedCustomerID?: string): void => { 
     setDeclineModal((prevState) => ({
       declinedReservationId: selectedCustomerID,
       modalIsOpen: !prevState.modalIsOpen,
