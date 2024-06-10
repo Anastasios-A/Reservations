@@ -4,9 +4,9 @@ import {
 } from "../../store/reservation-context";
 import styles from "./DeclineModal.module.scss";
 
-interface IDeclineModalProps {}
+ 
 
-export default function DeclineModal(props: IDeclineModalProps) {
+export default function DeclineModal() {
   const subject = useRef<HTMLInputElement>(null);
   const message = useRef<HTMLTextAreaElement>(null);
 

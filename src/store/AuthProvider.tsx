@@ -6,7 +6,7 @@ import {
 } from "firebase/auth";
 import { ReactNode, createContext, useContext, useState } from "react";
 
-type AuthContextValue = {
+export type AuthContextValue = {
   login: (email: string, password: string) => Promise<string>;
   logout: () => Promise<void>;
   user: any;

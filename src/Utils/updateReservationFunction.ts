@@ -1,4 +1,5 @@
-import { IReservation } from "../store/reservation-context";
+import { IReservation } from "../Models/Context Models";
+
 
 
 export const updateReservationState = async (reservation?: IReservation): Promise<any> => {
