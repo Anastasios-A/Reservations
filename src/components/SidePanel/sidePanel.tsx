@@ -1,5 +1,6 @@
 import styles from "./sidePanel.module.scss";
 import logo from "../../store/logo.png";
+
 import ourLogo from "../../store/athensLogo.png";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { useReservationsContext } from "../../store/reservation-context";
@@ -8,7 +9,7 @@ import SettingsModal from "../SettingsModal/SettingsModal";
 import { useAuth } from "../../store/AuthProvider";
 
 export default function SidePanel() {
-  const { openCloseDeclineForm } = useReservationsContext();
+  const { openCloseDeclineForm, storeDetails } = useReservationsContext();
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const authContext = useAuth();
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ export default function SidePanel() {
       )}
       <aside className={styles.sidePanel}>
         <header>
-          <img className={styles.logo} src={logo} alt="Logo" />
+          <img className={styles.logo} src={storeDetails.logoUrl} alt="Logo" />
           <div className={styles.label}>
             Powered By
             <img className={styles.ourLogo} src={ourLogo} alt="ourLogo" />
