@@ -1,10 +1,10 @@
 import styles from "./LogInPage.module.scss";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useAuth } from "../../store/AuthProvider";
 import ourLogo from "../../store/athensLogo.png";
 
 import { useNavigate } from "react-router-dom";
-import { DefaultButton } from "@fluentui/react";
+import { DefaultButton, TextField } from "@fluentui/react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -12,6 +12,7 @@ export default function LoginPage() {
   const authContext = useAuth();
   const navigate = useNavigate();
 
+ 
   return (
     <div className={styles.wrapper}>
       <div>
@@ -19,19 +20,23 @@ export default function LoginPage() {
         <div className={styles.formWrapper}>
           <div className={styles.header}> Login</div>
           <div className={styles.titleWithField}>
-            <label>Email:</label>
-            <input
-              type="email"
+          <TextField
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e,newValue)=> setEmail(newValue||"")}
+              label="Email:"
+              styles={{
+                fieldGroup: styles.input,
+              }}
             />
           </div>
           <div className={styles.titleWithField}>
-            <label>Password:</label>
-            <input
-              type="password"
+            <TextField
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e,newValue)=> setPassword(newValue||"")}
+              label="Password:"
+              styles={{
+                fieldGroup: styles.input,
+              }}
             />
           </div>
           <div className={styles.buttonContainer}>

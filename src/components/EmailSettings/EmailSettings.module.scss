@@ -29,6 +29,10 @@
   background-color: #f9f9f991;
   border: none;
   border-radius: 12px;
+
+  &::after {
+    border: none;
+  }
 }
 
 .bigInput {
@@ -46,6 +50,10 @@
   outline: none;
   width: 100%;
   height: 40%; */
+
+  &::after {
+    border: none;
+  }
 }
 
 .subject {
