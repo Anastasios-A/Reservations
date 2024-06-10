@@ -9,7 +9,7 @@ import SettingsModal from "../SettingsModal/SettingsModal";
 import { useAuth } from "../../store/AuthProvider";
 
 export default function SidePanel() {
-  const { openCloseDeclineForm, storeDetails } = useReservationsContext();
+  const { storeDetails } = useReservationsContext();
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const authContext = useAuth();
   const navigate = useNavigate();
@@ -38,15 +38,6 @@ export default function SidePanel() {
           </div>
         </header>
         <section className={styles.sectionButtons}>
-          <Link className={styles.sidePanelButtons} to="timeSlots">
-            Slots Settings
-          </Link>
-          <button
-            className={styles.sidePanelButtons}
-            onClick={() => openCloseDeclineForm(undefined)}
-          >
-            Decline Tempalte
-          </button>
           <button
             className={styles.sidePanelButtons}
             onClick={() => setIsSettingsModalOpen(true)}

@@ -11,7 +11,6 @@ interface ITimeSlotsProps {
 
 export default function TimeSlots(props: ITimeSlotsProps) {
   const [isSaveButtonVisible, setIsSaveButtonVisible] = useState(true);
-  // const [isSelectDateVisible, setIsSelectDateVisible] = useState(false);
   const [selectedTimeSlotsForTheDate, setSelectedTimeSlotsForTheDate] =
     useState<number[]>(props?.shopDetails?.slots);
 
@@ -50,7 +49,7 @@ export default function TimeSlots(props: ITimeSlotsProps) {
         {isSaveButtonVisible && (
           <button
             className={styles.action + " " + styles.actionAccept}
-            onClick={() => alert("clear changes")}
+            onClick={() => setSelectedTimeSlotsForTheDate([])}
           >
             Καθαρισμός
           </button>
