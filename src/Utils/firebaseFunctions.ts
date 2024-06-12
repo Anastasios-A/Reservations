@@ -9,15 +9,11 @@ import {
   where,
 } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
-import {
-  IReservation,
-  IStore,
-  IStoreDetails,
-} from "../Models/Context Models"
+import { IReservation, IStore, IStoreDetails } from "../Models/Context Models";
 const firebaseKey = process.env.REACT_APP_API_KEY;
 
 const firebaseConfig = {
-  apiKey: firebaseKey,
+  apiKey: "AIzaSyBczEYMEKz5KQjt9tbQZtP1MK14YuMvohU",
   authDomain: "myathenspath.firebaseapp.com",
   projectId: "myathenspath",
   storageBucket: "myathenspath.appspot.com",
@@ -116,10 +112,9 @@ export async function getReservations(
     const querySnapshot = await getDocs(q);
     console.log(querySnapshot.docs);
     const documents = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
       ...doc.data(),
+      id: doc.id,
     }));
-    console.log(documents);
 
     return documents as IReservation[];
   } catch (error) {

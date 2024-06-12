@@ -42,7 +42,7 @@ export default function SidePanel() {
             className={styles.sidePanelButtons}
             onClick={() => setIsSettingsModalOpen(true)}
           >
-            Settings
+            Ρυθμήσες
           </button>
         </section>
 
@@ -54,7 +54,7 @@ export default function SidePanel() {
               navigate("/login", { replace: true });
             }}
           >
-            Log out
+            Αποσύνδεση
           </button>
         </footer>
       </aside>

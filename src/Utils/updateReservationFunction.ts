@@ -1,16 +1,19 @@
-import { IReservation } from "../Models/Context Models";
-
-
-
-export const updateReservationState = async (reservation?: IReservation): Promise<any> => {
+import { CustomerStatusEnum, IReservation } from "../Models/Context Models";
+interface IReservationUpdate {
+  id: string;
+  status: CustomerStatusEnum;
+  isFromUser: boolean;
+  reasonOfCancelation?: string;
+}
+export const updateReservationState = async (
+  reservation?: IReservationUpdate
+): Promise<any> => {
   try {
-    if(!reservation)
-      return;
+    if (!reservation) return;
     const response = await fetch(
       "https://us-central1-myathenspath.cloudfunctions.net/updateReservation",
       {
         method: "POST", // directly using "POST"
-        mode: "no-cors", 
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
         },

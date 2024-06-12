@@ -1,10 +1,6 @@
 import { useRef } from "react";
-import {
-  useReservationsContext,
-} from "../../store/reservation-context";
+import { useReservationsContext } from "../../store/reservation-context";
 import styles from "./DeclineModal.module.scss";
-
- 
 
 export default function DeclineModal() {
   const subject = useRef<HTMLInputElement>(null);
@@ -24,7 +20,7 @@ export default function DeclineModal() {
     <div className={styles.declineModal}>
       <header className={styles.declineModalHeader}>
         <h5> Reservation Cancelation Message</h5>
-        <button onClick={()=>openCloseDeclineForm(undefined)}>x</button>
+        <button onClick={() => openCloseDeclineForm(undefined)}>x</button>
       </header>
 
       <main className={styles.declineModalMain}>
@@ -45,18 +41,36 @@ export default function DeclineModal() {
             <input
               id="subject"
               className={styles.detailInput}
+              value={
+                useReservationsContext()?.storeDetails?.emailSubjectTemplate
+              }
               type="text"
               ref={subject}
             />
           </div>
         </section>
 
-        <textarea className={styles.textArea} ref={message} />
+        <textarea
+          className={styles.textArea}
+          ref={message}
+          value={useReservationsContext()?.storeDetails?.emailTextTemplate}
+        />
       </main>
       <footer className={styles.footer}>
         <button
           className={styles.footerButton}
-          onClick={() => sendDecline(declinedReservationId, subject.current?.value, message.current?.value)}
+          onClick={() => {
+            sendDecline(
+              declinedReservationId,
+              subject.current?.value,
+              message.current?.value
+            );
+            console.log(
+              declinedReservationId,
+              subject.current?.value,
+              message.current?.value
+            );
+          }}
         >
           {declinedReservationId ? "Send" : "Save"}
         </button>

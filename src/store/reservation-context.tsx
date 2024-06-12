@@ -75,11 +75,12 @@ interface IReservationsContextProviderProps {
 
 const updateCustomerInputs = (
   customerArray: IReservation[],
+  status: CustomerStatusEnum,
   selectedCustomerId?: string
 ): IReservation[] => {
   return (customerArray || []).map((customer: IReservation) => {
     if (customer.id === selectedCustomerId) {
-      return { ...customer, status: CustomerStatusEnum.Accepted };
+      return { ...customer, status: status };
     }
     return customer;
   });
@@ -123,29 +124,64 @@ export default function ReservationsContextProvider(
   );
 
   const acceptReservation = useCallback(
-    (selectedCustomerID: string): void => {
+    (reservationID: string): void => {
       const updatedReservations: IReservation[] = updateCustomerInputs(
         reservations,
-        selectedCustomerID
+        CustomerStatusEnum.Accepted,
+        reservationID
       );
       const updatedSearchList = updateCustomerInputs(
-        searchedCustomers,
-        selectedCustomerID
+        reservations,
+        CustomerStatusEnum.Accepted,
+        reservationID
       );
 
-      updateReservationState(
-        updatedReservations?.find(
-          (res: IReservation) => res.id === selectedCustomerID
-        )
+      const reservationToBeUpdated = updatedReservations?.find(
+        (res: IReservation) => res.id === reservationID
       );
+
+      updateReservationState({
+        id: reservationToBeUpdated?.id || "",
+        status: CustomerStatusEnum.Accepted,
+        isFromUser: false,
+      });
       setReservations(updatedReservations);
       setSearchedCustomer(updatedSearchList);
       console.log(reservations);
     },
-    [reservations, searchedCustomers]
+    [reservations]
+  );
+  const declineReservation = useCallback(
+    (reservationID: string, reasonOfCancelation: string): void => {
+      const updatedReservations: IReservation[] = updateCustomerInputs(
+        reservations,
+        CustomerStatusEnum.Declined,
+        reservationID
+      );
+      const updatedSearchList = updateCustomerInputs(
+        reservations,
+        CustomerStatusEnum.Declined,
+        reservationID
+      );
+
+      const reservationToBeUpdated = updatedReservations?.find(
+        (res: IReservation) => res.id === reservationID
+      );
+
+      updateReservationState({
+        id: reservationToBeUpdated?.id || "",
+        status: CustomerStatusEnum.Declined,
+        isFromUser: false,
+        reasonOfCancelation: reasonOfCancelation,
+      });
+      setReservations(updatedReservations);
+      setSearchedCustomer(updatedSearchList);
+      console.log(reservations);
+    },
+    [reservations]
   );
 
-  const openCloseDeclineForm = (selectedCustomerID?: string): void => { 
+  const openCloseDeclineForm = (selectedCustomerID?: string): void => {
     setDeclineModal((prevState) => ({
       declinedReservationId: selectedCustomerID,
       modalIsOpen: !prevState.modalIsOpen,
@@ -186,32 +222,36 @@ export default function ReservationsContextProvider(
 
   const sendDecline = useCallback(
     (selectedCustomerID?: string, subject?: string, message?: string): void => {
-      if (typeof selectedCustomerID === "number") {
-        const updatedReservations = updateCustomerInputs(
-          reservations,
-          selectedCustomerID
-        );
-        const updatedSearchList = updateCustomerInputs(
-          searchedCustomers,
-          selectedCustomerID
-        );
+      const updatedReservations = updateCustomerInputs(
+        reservations,
+        CustomerStatusEnum.Declined,
+        selectedCustomerID || ""
+      );
+      const updatedSearchList = updateCustomerInputs(
+        searchedCustomers,
+        CustomerStatusEnum.Declined,
+        selectedCustomerID
+      );
 
-        setReservations(updatedReservations);
-        setSearchedCustomer(updatedSearchList);
+      setReservations(updatedReservations);
+      setSearchedCustomer(updatedSearchList);
 
-        console.log("CUSTOMER DECLIENED");
-        console.log(
-          "CustomerID  : ",
-          selectedCustomerID,
-          " subject  : ",
-          subject,
-          "message  : ",
-          message
-        );
-      } else {
-        console.log("POST/SAVE NEW TEMPALTE TO FIREBASE ");
-        console.log("subject  : ", subject, "message  : ", message);
-      }
+      updateReservationState({
+        id: selectedCustomerID || "",
+        status: CustomerStatusEnum.Declined,
+        isFromUser: false,
+        reasonOfCancelation: message,
+      });
+
+      console.log("CUSTOMER DECLIENED");
+      console.log(
+        "CustomerID  : ",
+        selectedCustomerID,
+        " subject  : ",
+        subject,
+        "message  : ",
+        message
+      );
 
       setDeclineModal({
         declinedReservationId: undefined,
