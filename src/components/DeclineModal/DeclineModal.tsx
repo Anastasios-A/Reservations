@@ -1,13 +1,17 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useReservationsContext } from "../../store/reservation-context";
 import styles from "./DeclineModal.module.scss";
 
 export default function DeclineModal() {
-  const subject = useRef<HTMLInputElement>(null);
-  const message = useRef<HTMLTextAreaElement>(null);
-
   const { openCloseDeclineForm, sendDecline, declineModal, reservations } =
     useReservationsContext();
+
+  const [subject, setSubject] = useState(
+    useReservationsContext().storeDetails.emailSubjectTemplate
+  );
+  const [message, setMessage] = useState(
+    useReservationsContext().storeDetails.emailTextTemplate
+  );
 
   const declinedReservationId: string | undefined =
     declineModal.declinedReservationId;
@@ -41,35 +45,28 @@ export default function DeclineModal() {
             <input
               id="subject"
               className={styles.detailInput}
-              value={
-                useReservationsContext()?.storeDetails?.emailSubjectTemplate
-              }
               type="text"
-              ref={subject}
+              value={subject}
+              onChange={(e) => {
+                setSubject(e.target.value);
+              }}
             />
           </div>
         </section>
 
         <textarea
           className={styles.textArea}
-          ref={message}
-          value={useReservationsContext()?.storeDetails?.emailTextTemplate}
+          value={message}
+          onChange={(e) => {
+            setMessage(e.target.value);
+          }}
         />
       </main>
       <footer className={styles.footer}>
         <button
           className={styles.footerButton}
           onClick={() => {
-            sendDecline(
-              declinedReservationId,
-              subject.current?.value,
-              message.current?.value
-            );
-            console.log(
-              declinedReservationId,
-              subject.current?.value,
-              message.current?.value
-            );
+            sendDecline(declinedReservationId, subject, message);
           }}
         >
           {declinedReservationId ? "Send" : "Save"}
