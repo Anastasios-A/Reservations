@@ -1,5 +1,5 @@
 import CustomerSearch from "../CustomerSearch/customerSearch";
-import styles from "./header.module.scss"
+import styles from "./header.module.scss";
 
 export default function Header() {
   return (

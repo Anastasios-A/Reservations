@@ -42,6 +42,7 @@ type ReservationsContextValue = {
   store: IStore;
   storeDetails: IStoreDetails;
   onChooseTab: (choosenTab: ChoosenTab) => void;
+  fetchData: () => Promise<void>;
   choosenTab: ChoosenTab;
   searchCustomer: (searchTerm: string) => void;
   searchedCustomers: IReservation[];
@@ -151,35 +152,6 @@ export default function ReservationsContextProvider(
     },
     [reservations]
   );
-  const declineReservation = useCallback(
-    (reservationID: string, reasonOfCancelation: string): void => {
-      const updatedReservations: IReservation[] = updateCustomerInputs(
-        reservations,
-        CustomerStatusEnum.Declined,
-        reservationID
-      );
-      const updatedSearchList = updateCustomerInputs(
-        reservations,
-        CustomerStatusEnum.Declined,
-        reservationID
-      );
-
-      const reservationToBeUpdated = updatedReservations?.find(
-        (res: IReservation) => res.id === reservationID
-      );
-
-      updateReservationState({
-        id: reservationToBeUpdated?.id || "",
-        status: CustomerStatusEnum.Declined,
-        isFromUser: false,
-        reasonOfCancelation: reasonOfCancelation,
-      });
-      setReservations(updatedReservations);
-      setSearchedCustomer(updatedSearchList);
-      console.log(reservations);
-    },
-    [reservations]
-  );
 
   const openCloseDeclineForm = (selectedCustomerID?: string): void => {
     setDeclineModal((prevState) => ({
@@ -188,8 +160,12 @@ export default function ReservationsContextProvider(
     }));
   };
 
-  const fetchData = useCallback(async (storeEmail: string) => {
+  const fetchData = useCallback(async () => {
     try {
+      let storeEmail = "";
+      if (!!authContext?.user) {
+        storeEmail = authContext?.user;
+      }
       const store: IStore = await getStore(storeEmail);
       console.log("Store ", store);
       if (store?.id) {
@@ -210,10 +186,10 @@ export default function ReservationsContextProvider(
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  }, []);
+  }, [authContext?.user]);
 
   useEffect(() => {
-    if (!!authContext?.user) fetchData(authContext?.user);
+    fetchData();
   }, [authContext?.user, fetchData]);
 
   const changeStoreDetails = (shopDetails: IStoreDetails): void => {
@@ -264,6 +240,7 @@ export default function ReservationsContextProvider(
   const ctx: ReservationsContextValue = {
     reservations,
     store,
+    fetchData,
     storeDetails,
     searchCustomer,
     changeStoreDetails,

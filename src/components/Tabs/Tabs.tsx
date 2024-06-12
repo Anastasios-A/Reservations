@@ -16,6 +16,8 @@ export default function Tabs() {
   const onChooseTab = useReservationsContext().onChooseTab;
   const choosenTab: string = useReservationsContext().choosenTab;
 
+  const fetchData = useReservationsContext().fetchData;
+
   const reservations: IReservation[] = useReservationsContext().reservations;
 
   const reservationsSum = (reservations || []).reduce(
@@ -43,27 +45,24 @@ export default function Tabs() {
         >
           All <div className={styles.buttonSum}> {reservations.length} </div>
         </button>
-
         <button
           className={`${styles.button} ${styles.buttonPending} ${
             choosenTab === ChoosenTab.Pending ? styles.active : ""
           }`}
           onClick={() => onChooseTab(ChoosenTab.Pending)}
         >
-          Pending{" "}
+          Pending
           <div className={styles.buttonSum + " " + styles.buttonSumPending}>
-            {" "}
             {reservationsSum.pending}
           </div>
         </button>
-
         <button
           className={`${styles.button}  ${styles.buttonAccepted}  ${
             choosenTab === ChoosenTab.Accepted ? styles.active : ""
           }`}
           onClick={() => onChooseTab(ChoosenTab.Accepted)}
         >
-          Accepted{" "}
+          Accepted
           <div className={styles.buttonSum + " " + styles.buttonSumAccepted}>
             {reservationsSum.accepted}
           </div>
@@ -75,13 +74,18 @@ export default function Tabs() {
           }`}
           onClick={() => onChooseTab(ChoosenTab.Declined)}
         >
-          Declined{" "}
+          Declined
           <div className={styles.buttonSum + " " + styles.buttonSumDeclined}>
-            {" "}
             {reservationsSum.declined}
           </div>
         </button>
       </main>
+      <button
+        className={styles.RefreshButton}
+        onClick={async () => await fetchData()}
+      >
+        Refresh
+      </button>
     </div>
   );
 }
