@@ -6,22 +6,16 @@
   padding: 10px;
 
   @media #{$maxTablet} {
-  height: 95%;
+    height: 95%;
   }
 }
 
 .settingsModal {
   display: grid;
   grid-template-rows: auto 1fr auto;
-  gap: 16px; 
+  gap: 16px;
+}
 
-  @media #{$maxTablet} {
-    grid-template-rows: auto 1fr 1fr auto;
-    grid-template-columns: 1fr;
-    gap: 12px; 
-   
-  }
-};
 .title {
   font-size: 30px;
   font-weight: 500;
@@ -41,8 +35,6 @@
 
 .settingsModal > main {
   display: contents; /* Use 'contents' to inherit the grid layout of the parent */
-
-
 }
 
 .timeSlots {
@@ -54,13 +46,12 @@
   }
 }
 
-.emailSettings{
+.emailSettings {
   display: flex;
   justify-content: center;
-  height: fit-content;
+  height: 100%;
   @media #{$maxTablet} {
     grid-column: span 2; /* Span the header across both columns */
-
   }
 }
 
