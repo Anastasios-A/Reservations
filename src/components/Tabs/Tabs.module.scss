@@ -1,3 +1,5 @@
+@import "/src/main.scss";
+
 .tabs {
   display: flex;
   justify-content: start;
@@ -6,6 +8,15 @@
   margin-bottom: 30px;
 
   font-weight: bold;
+
+  @media #{$maxExtraSmallMobile} {
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: stretch;
+    height: 15%;
+    margin-bottom: 15px;
+    }
+  
 }
 
 .tabButtons {
@@ -13,12 +24,17 @@
   width: 280px;
   display: flex;
   justify-content: start;
-  align-items: baseline;
+  // align-items: baseline;
   min-width: max-content;
   box-shadow: 0px 4px 4px 0px rgba(33, 33, 33, 0.25);
   border-radius: 20px;
   font-size: 15px;
   margin-right: 80px;
+
+  @media #{$maxExtraSmallMobile} {
+  width: 100%;
+  justify-content: space-evenly;
+    }
 }
 
 .button {
@@ -48,6 +64,11 @@
   &Declined {
     color: #fa6b6b;
   }
+
+  @media #{$maxExtraSmallMobile} {
+    width: 25%;
+  }
+
 }
 
 .active {

@@ -1,8 +1,23 @@
+@import "/src/main.scss";
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 5vh;
+  @media #{$maxExtraSmallMobile} {
+  flex-direction: column;
+  align-items: center;
+  height: 15%;
+  margin-bottom: 2.5vh;
+  }
 
-.header{
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 5vh;
+}
+
+.modalSetting {
+display: flex;
+justify-content: end;
+  @media #{$minLaptop} {
+    display: none;
+  }
 }

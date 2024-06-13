@@ -1,3 +1,5 @@
+@import "/src/main.scss";
+
 .screen {
   display: flex;
 }
@@ -11,6 +13,10 @@
   align-items: center;
   border-right: 1px solid black;
   min-width: 240px;
+  overflow: hidden;
+  @media #{$maxTablet} {
+    display: none;
+  }
 }
 
 .timeSlotsHeader {
@@ -21,6 +27,10 @@
 .mainOutlet {
   height: 100vh;
   width: 85vw;
+
+  @media #{$maxTablet} {
+    width: 100vw;
+  }
 }
 
 .logo {
@@ -60,4 +70,13 @@
 
 .logout {
   margin-bottom: 50px;
+}
+
+.sidePanelModal {
+  display: flex;
+  flex-direction: column;
+  height: 85vh;
+  width: 65vw;
+  justify-content: space-between;
+  align-items: center;
 }

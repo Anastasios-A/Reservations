@@ -5,14 +5,19 @@ import styles from "./Home.module.scss";
 import DeclineModal from "../../components/DeclineModal/DeclineModal";
 import { useReservationsContext } from "../../store/reservation-context";
 
-export default function HomePage() {
+
+interface IHomeProps{
+  onOpenSideModal:()=>void
+}
+
+export default function HomePage(props:IHomeProps) {
   const isDeclineModalOpen = useReservationsContext().declineModal.modalIsOpen;
   return (
     <div className={styles.home}>
       {isDeclineModalOpen && <DeclineModal />}
 
       <main className={styles.homeMain}>
-        <Header />
+        <Header opOpenSideModal={props.onOpenSideModal} />
         <Tabs />
         <ReservationList />
       </main>
