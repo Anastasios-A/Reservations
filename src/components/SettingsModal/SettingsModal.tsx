@@ -41,6 +41,7 @@ export default function SettingsModal(props: ISettingsModalProps) {
       isOpen={true}
       containerClassName={styles.container}
       onDismiss={props?.onDismiss}
+      styles={{ scrollableContent: { overflow: "visible" } }}
     >
       <div className={styles.settingsModal}>
         <header>

@@ -1,7 +1,7 @@
 import styles from "./LogInPage.module.scss";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../../store/AuthProvider";
-import ourLogo from "../../store/athensLogo.png";
+import ourLogo from "../../Assets/athensLogo.png";
 
 import { useNavigate } from "react-router-dom";
 import { DefaultButton, TextField } from "@fluentui/react";

@@ -1,0 +1,73 @@
+// Functions
+@function getColor($color) {
+  @return map_get($all-colors, $color);
+}
+
+@function getMedias($mediaName) {
+  @return map_get($medias, $mediaName);
+}
+
+// Colors
+$all-colors: (
+  gray-primary: #f7f9f5,
+  gray-light:#f9f9f991,
+
+  green-primary: #5dd253,
+  red-primary: #fa6b6b,
+  yellow-primary: #ffcc01,
+);
+/* se them like this :
+  
+  @import "/src/main.scss";
+  
+  .backIcon {
+  
+    color: $cosmodata-gray-primary;
+  
+  } */
+$reservations-gray-primary: getColor(gray-primary);
+$reservations-gray-light: getColor(gray-light);
+$reservations-green-primary: getColor(green-primary);
+$reservations-red-primary: getColor(red-primary);
+$reservations-yellow-primary: getColor(yellow-primary);
+
+// Medias predifined variables
+$medias: (
+  minSmallMobile: "screen and (min-width: 468px)",
+  minTablet: "screen and (min-width: 768px)",
+  minLargeTablet: "screen and (min-width: 992px)",
+  minLaptop: "screen and (min-width: 1024px)",
+  tablet: "screen and (min-width: 768px) and (max-width: 1023px)",
+  laptop: "screen and (min-width: 1023px) and (max-width: 1536px)",
+  smallDesktop: "screen and (min-widht 1200px)",
+  desktop: "screen and (min-width: 1537px)",
+  maxLaptop: "screen and (max-width: 1536px)",
+  maxTablet: "screen and (max-width: 1023px)",
+  maxMobile: "screen and (max-width: 767px)",
+  maxExtraSmallMobile: "screen and (max-width: 650px)",
+);
+
+// use them like this: @media #{$laptop} {}
+
+$minSmallMobile: getMedias(minSmallMobile);
+$minTablet: getMedias(minTablet);
+$minLargeTablet: getMedias(minLargeTablet);
+$minLaptop: getMedias(minLaptop);
+$desktop: getMedias(desktop);
+$smallDesktop : getMedias(smallDesktop);
+$tablet: getMedias(tablet);
+$laptop: getMedias(laptop);
+$maxMobile: getMedias(maxMobile);
+$maxTablet: getMedias(maxTablet);
+$maxLaptop: getMedias(maxLaptop);
+$maxExtraSmallMobile: getMedias(maxExtraSmallMobile);
+
+:export {
+  reservations-gray-primary: $reservations-gray-primary;
+  reservations-gray-light: $reservations-gray-light;
+
+  reservations-green-primary: $reservations-green-primary;
+  reservations-red-primary: $reservations-red-primary;
+
+  reservations-yellow-primary: $reservations-yellow-primary;
+}

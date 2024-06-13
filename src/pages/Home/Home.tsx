@@ -8,7 +8,12 @@ import QrReader from "../../components/QrCodeScanner/QrCodeScannerModal";
 import { Modal } from "@fluentui/react";
 import { useState } from "react";
 
-export default function HomePage() {
+
+interface IHomeProps{
+  onOpenSideModal:()=>void
+}
+
+export default function HomePage(props:IHomeProps) {
   const isDeclineModalOpen = useReservationsContext().declineModal.modalIsOpen;
   const [isQrOpen, setQrOpen] = useState<boolean>(false);
   const [isManualInputOpen, setManualInputOpen] = useState<boolean>(false);
@@ -36,7 +41,7 @@ export default function HomePage() {
         </Modal>
       )}
       <main className={styles.homeMain}>
-        <Header />
+        <Header opOpenSideModal={props.onOpenSideModal} />
         <Tabs />
         <ReservationList />
         <div className={styles.buttonsWrapper}>
