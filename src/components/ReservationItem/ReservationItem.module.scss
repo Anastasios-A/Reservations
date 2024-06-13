@@ -1,3 +1,5 @@
+@import "/src/main.scss";
+
 .item {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
@@ -17,6 +19,17 @@
   &:last-child{
     margin-bottom: 5px;
   }
+
+  @media #{$smallDesktop}{
+    background-color: #fa6b6b;
+  }
+
+  @media #{$maxMobile} {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    min-height: 230px;
+  }
 }
 
 .personalInfo {
@@ -27,6 +40,7 @@
 .name {
   font-weight: bold;
   font-size: 16px;
+ 
 }
 
 .date {
@@ -59,6 +73,10 @@
   justify-content: space-around;
   align-items: center;
   font-weight: bold;
+  @media #{$maxMobile} {
+    max-width: 80%;
+    min-height: 85px;
+  }
 }
 
 .acceptButton {

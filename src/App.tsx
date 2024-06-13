@@ -6,10 +6,12 @@ import HomePage from "./pages/Home/Home";
 import { initializeIcons } from "@fluentui/react";
 import LoginPage from "./pages/LogInPage/LogInPage";
 import AuthProvider from "./store/AuthProvider";
+import { useState } from "react";
 
 export default function App() {
   initializeIcons();
-
+  const [sideModale, setSideModale] = useState<boolean>(false);
+  const sideModaleHandler = () => setSideModale((prev) => !prev);
   return (
     <>
       <BrowserRouter>
@@ -17,8 +19,19 @@ export default function App() {
           <ReservationsContextProvider>
             <Routes>
               <Route path="/login" element={<LoginPage />} />
-              <Route path="/" element={<SidePanel />}>
-                <Route path="/home" element={<HomePage />} />
+              <Route
+                path="/"
+                element={
+                  <SidePanel
+                    sideModal={sideModale}
+                    onOpenSideModal={sideModaleHandler}
+                  />
+                }
+              >
+                <Route
+                  path="/home"
+                  element={<HomePage onOpenSideModal={sideModaleHandler} />}
+                />
               </Route>
             </Routes>
           </ReservationsContextProvider>

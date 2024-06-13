@@ -1,5 +1,9 @@
+@import "/src/main.scss";
+
+
 .home{
     display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -10,5 +14,9 @@
     width: 80vw;
     height: 100vh;
     padding: 30px;
+   overflow: auto;
+    @media screen and (max-width: 1200px){
+      width: auto;
+    }
   }
   
