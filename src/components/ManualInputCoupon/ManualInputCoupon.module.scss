@@ -1,0 +1,52 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+  border-radius: 15px;
+  padding: 10px;
+}
+.scrollable {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.itemList {
+  padding: 20px;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.couponHeader {
+  font-size: 20px;
+  overflow-x: scroll;
+}
+.title {
+  font-size: 20px;
+  font-weight: 600;
+}
+.price {
+  font-size: 15px;
+  font-weight: 500;
+}
+.quantity {
+  font-size: 25px;
+  font-weight: 700;
+}
+.itemWrapper {
+  padding: 5px;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid gray;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
+.titlePrice {
+  display: flex;
+  flex-direction: column;
+}

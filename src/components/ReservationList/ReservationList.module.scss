@@ -1,3 +1,5 @@
+@import "/src/main.scss";
+
 .reservationsList {
   display: flex;
   flex-direction: column;
@@ -5,9 +7,12 @@
   max-height: 76%;
   overflow: auto;
   overflow-x: hidden;
-  padding-right:15px;
-}
+  padding-right: 15px;
 
+  @media #{$maxExtraSmallMobile} {
+    max-height: 55%;
+  }
+}
 
 .reservationsList::-webkit-scrollbar {
   width: 4px; /* Width of the vertical scrollbar */

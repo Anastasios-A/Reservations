@@ -1,6 +1,8 @@
 import {
+  addDoc,
   collection,
   doc,
+  getDoc,
   getDocs,
   getFirestore,
   query,
@@ -9,8 +11,12 @@ import {
   where,
 } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
-import { IReservation, IStore, IStoreDetails } from "../Models/Context Models";
-const firebaseKey = process.env.REACT_APP_API_KEY;
+import {
+  ICoupon,
+  IReservation,
+  IStore,
+  IStoreDetails,
+} from "../Models/ContextModels";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBczEYMEKz5KQjt9tbQZtP1MK14YuMvohU",
@@ -27,6 +33,7 @@ export default db;
 const RESERVATIONS_COLLECTION = "Reservations";
 const STORES_DETAILS_COLLECTION = "shopsDetails";
 const STORES_COLLECTION = "shops";
+const COUPONS_COLLECTION = "Coupons";
 
 export async function updateStoreTemplates(
   storeId: string,
@@ -45,9 +52,6 @@ export async function updateStoreTemplates(
     throw error;
   }
 }
-
-/* export async function getShopDetails(): Promise<IStoreDetails> {
-} */
 
 export async function getStore(storeEmail: string): Promise<IStore> {
   try {
@@ -81,6 +85,42 @@ export async function getStoreDetails(storeId: string): Promise<IStoreDetails> {
     throw error;
   }
 }
+
+export async function getCoupon(couponId: string): Promise<ICoupon> {
+  try {
+    const docRef = doc(db, COUPONS_COLLECTION, couponId);
+    const docSnap = await getDoc(docRef);
+
+    return docSnap.data() as ICoupon;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+export async function addCoupon(newCouponData: ICoupon): Promise<string> {
+  try {
+    const collectionRef = collection(db, COUPONS_COLLECTION);
+    const docRef = await addDoc(collectionRef, newCouponData);
+    return docRef.id;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function updateCoupon(
+  couponId: string,
+  newCouponData: ICoupon
+): Promise<void> {
+  try {
+    const docRef = doc(db, COUPONS_COLLECTION, couponId);
+    await setDoc(docRef, newCouponData, { merge: true });
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
 export async function updateStoreDetails(
   storeDetails: IStoreDetails
 ): Promise<void> {

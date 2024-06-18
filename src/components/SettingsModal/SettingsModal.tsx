@@ -12,7 +12,7 @@ import EmailSettings from "../EmailSettings/EmailSettings";
 import { useReservationsContext } from "../../store/reservation-context";
 import { useCallback, useState } from "react";
 import { updateStoreDetails } from "../../Utils/firebaseFunctions";
-import { IStoreDetails } from "../../Models/Context Models";
+import { IStoreDetails } from "../../Models/ContextModels";
 
 interface ISettingsModalProps {
   onDismiss: () => void;
@@ -65,7 +65,10 @@ export default function SettingsModal(props: ISettingsModalProps) {
         </main>
 
         <footer className={styles.footerButtons}>
-          <button className={`${styles.button} ${styles.cancel}`} onClick={props.onDismiss}>
+          <button
+            className={`${styles.button} ${styles.cancel}`}
+            onClick={props.onDismiss}
+          >
             Ακύρωση
           </button>
           <button

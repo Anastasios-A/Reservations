@@ -1,4 +1,4 @@
-import { CustomerStatusEnum, IReservation } from "../Models/Context Models";
+import { CustomerStatusEnum, IReservation } from "../Models/ContextModels";
 interface IReservationUpdate {
   id: string;
   status: CustomerStatusEnum;

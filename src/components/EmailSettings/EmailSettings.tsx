@@ -2,7 +2,7 @@ import { TextField } from "@fluentui/react";
 import styles from "./EmailSettings.module.scss";
 
 import { useCallback } from "react";
-import { IStoreDetails } from "../../Models/Context Models";
+import { IStoreDetails } from "../../Models/ContextModels";
 
 interface IEmailSettingsProps {
   setShopDetails: React.Dispatch<React.SetStateAction<IStoreDetails>>;

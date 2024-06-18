@@ -70,7 +70,7 @@ export default function QrReader(props: IQrReaderProps) {
 
   return (
     <div className={styles.wrapper}>
-      {qrOn && <video /* className={styles.wrapper} */ ref={videoEl} />}
+      {qrOn && <video className={styles.video} ref={videoEl} />}
     </div>
   );
 }

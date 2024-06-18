@@ -3,7 +3,7 @@ import {
   ChoosenTab,
   CustomerStatusEnum,
   IReservation,
-} from "../../Models/Context Models";
+} from "../../Models/ContextModels";
 import { useReservationsContext } from "../../store/reservation-context";
 
 export default function Tabs() {

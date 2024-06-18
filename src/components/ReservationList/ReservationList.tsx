@@ -2,7 +2,7 @@ import {
   ChoosenTab,
   CustomerStatusEnum,
   IReservation,
-} from "../../Models/Context Models";
+} from "../../Models/ContextModels";
 import { useReservationsContext } from "../../store/reservation-context";
 import ReservationItem from "../ReservationItem/ReservationItem";
 import styles from "./ReservationList.module.scss";

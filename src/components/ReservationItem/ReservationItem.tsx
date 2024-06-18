@@ -1,4 +1,4 @@
-import { CustomerStatusEnum, IReservation } from "../../Models/Context Models";
+import { CustomerStatusEnum, IReservation } from "../../Models/ContextModels";
 import { useReservationsContext } from "../../store/reservation-context";
 
 import styles from "./ReservationItem.module.scss";

@@ -1,8 +1,7 @@
 import { useCallback, useState } from "react";
 import TimeSlotsComponent from "../../components/TimeSlots/TimeSlotsComponent/TimeSlotsComponent";
 import styles from "./TimeSlots.module.scss";
-import { IStoreDetails } from "../../Models/Context Models";
-
+import { IStoreDetails } from "../../Models/ContextModels";
 
 interface ITimeSlotsProps {
   setShopDetails: React.Dispatch<React.SetStateAction<IStoreDetails>>;

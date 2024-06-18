@@ -1,6 +1,10 @@
 .wrapper {
-  width: 90%;
-  height: 100%;
   margin: 10px;
   border-radius: 10px;
+}
+
+.video {
+  width: 80vw;
+  height: 50vh;
+  transform: rotate(95deg);
 }

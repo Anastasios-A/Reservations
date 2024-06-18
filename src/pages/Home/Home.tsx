@@ -7,31 +7,36 @@ import { useReservationsContext } from "../../store/reservation-context";
 import QrReader from "../../components/QrCodeScanner/QrCodeScannerModal";
 import { Modal } from "@fluentui/react";
 import { useState } from "react";
+import ManualInputCoupon from "../../components/ManualInputCoupon/ManualInputCoupon";
+import { IStore } from "../../Models/ContextModels";
 
-
-interface IHomeProps{
-  onOpenSideModal:()=>void
+interface IHomeProps {
+  onOpenSideModal: () => void;
 }
 
-export default function HomePage(props:IHomeProps) {
+export default function HomePage(props: IHomeProps) {
   const isDeclineModalOpen = useReservationsContext().declineModal.modalIsOpen;
+  const store: IStore = useReservationsContext().store;
+
   const [isQrOpen, setQrOpen] = useState<boolean>(false);
-  const [isManualInputOpen, setManualInputOpen] = useState<boolean>(false);
+  const [couponId, setCouponId] = useState<string>("");
 
   const onScan = (barcode: string) => {
     console.log("s->", barcode);
     setQrOpen(false);
-    setManualInputOpen(true);
+    setCouponId(barcode);
   };
   return (
     <div className={styles.home}>
       {isDeclineModalOpen && <DeclineModal />}
+      {couponId && (
+        <ManualInputCoupon
+          couponId={couponId}
+          onDismiss={() => setCouponId("")}
+        />
+      )}
       {isQrOpen && (
-        <Modal
-          isOpen={true}
-          //className={styles.wrapper}
-          // styles={{ root: styles.wrapper }}
-        >
+        <Modal isOpen={true}>
           <QrReader onScan={onScan} onClose={() => setQrOpen(false)} />
           <div className={styles.closeButtonWrapper}>
             <button className={styles.btn} onClick={() => setQrOpen(false)}>
@@ -44,12 +49,21 @@ export default function HomePage(props:IHomeProps) {
         <Header opOpenSideModal={props.onOpenSideModal} />
         <Tabs />
         <ReservationList />
-        <div className={styles.buttonsWrapper}>
-          <button className={styles.btn}>Add manualy</button>
-          <button className={styles.btn} onClick={() => setQrOpen(true)}>
-            Scan QR
-          </button>
-        </div>
+        {store?.recomendedMenu && (
+          <div className={styles.buttonsWrapper}>
+            <button
+              className={styles.btn}
+              onClick={() => {
+                setCouponId("new");
+              }}
+            >
+              Add manualy
+            </button>
+            <button className={styles.btn} onClick={() => setQrOpen(true)}>
+              Scan QR
+            </button>
+          </div>
+        )}
       </main>
     </div>
   );

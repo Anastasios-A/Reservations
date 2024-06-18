@@ -22,7 +22,7 @@ import {
   IStoreDetails,
   Store,
   StoreDetails,
-} from "../Models/Context Models";
+} from "../Models/ContextModels";
 
 export const mapStatusToEnum = (status: string): CustomerStatusEnum => {
   switch (status) {

@@ -81,7 +81,7 @@ export default function SidePanel(props: ISidePanelProps) {
           onDismiss={props.onOpenSideModal}
         >
           <aside className={styles.sidePanelModal}>
-            <header>
+            <div className={styles.headerWrapper}>
               <img
                 className={styles.logo}
                 src={storeDetails.logoUrl}
@@ -91,7 +91,7 @@ export default function SidePanel(props: ISidePanelProps) {
                 Powered By
                 <img className={styles.ourLogo} src={ourLogo} alt="ourLogo" />
               </div>
-            </header>
+            </div>
             <section className={styles.sectionButtons}>
               <button
                 className={styles.sidePanelButtons}
