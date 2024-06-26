@@ -59,6 +59,8 @@ export async function getStore(storeEmail: string): Promise<IStore> {
       collection(db, STORES_COLLECTION),
       where("reservationEmail", "==", storeEmail)
     );
+    console.log(q);
+
     const querySnapshot = await getDocs(q);
     console.log(querySnapshot.docs[0].data());
     return querySnapshot.docs[0].data() as IStore;

@@ -5,7 +5,7 @@ import { useReservationsContext } from "../../store/reservation-context";
 import { useEffect, useState } from "react";
 import SettingsModal from "../SettingsModal/SettingsModal";
 import { useAuth } from "../../store/AuthProvider";
-import { Modal } from "@fluentui/react";
+import { FontIcon, Modal, Spinner } from "@fluentui/react";
 
 interface ISidePanelProps {
   sideModal: boolean;
@@ -15,6 +15,8 @@ interface ISidePanelProps {
 export default function SidePanel(props: ISidePanelProps) {
   const { storeDetails } = useReservationsContext();
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+  const isLoading: boolean = useReservationsContext().isLoading;
+
   const authContext = useAuth();
   const navigate = useNavigate();
 
@@ -27,45 +29,53 @@ export default function SidePanel(props: ISidePanelProps) {
     }
   }, [authContext?.user, navigate]);
 
+  if (isLoading) {
+    return (
+      <div className={styles.spinner}>
+        <Spinner styles={{ circle: styles.circle }} />
+      </div>
+    );
+  }
   if (!props.sideModal) {
     return (
       <div className={styles.screen}>
         {isSettingsModalOpen && (
           <SettingsModal onDismiss={() => setIsSettingsModalOpen(false)} />
         )}
-        <aside className={styles.sidePanel}>
-          <header>
-            <img
-              className={styles.logo}
-              src={storeDetails.logoUrl}
-              alt="Logo"
-            />
+        <div className={styles.sidePanel}>
+          <div className={styles.menuWrapper}>
+            <div className={styles.header}>
+              <img
+                className={styles.logo}
+                src={storeDetails.logoUrl}
+                alt="Logo"
+              />
+            </div>
+            <div className={styles.menu}>
+              <button
+                className={styles.sidePanelButtons}
+                onClick={() => setIsSettingsModalOpen(true)}
+              >
+                <FontIcon iconName="Settings" />
+                Ρυθμήσες
+              </button>
+              <button
+                className={`${styles.sidePanelButtons} ${styles.logout}`}
+                onClick={async () => {
+                  authContext?.logout();
+                  navigate("/login", { replace: true });
+                }}
+              >
+                <FontIcon iconName="Back" />
+                Αποσύνδεση
+              </button>
+            </div>
             <div className={styles.label}>
               Powered By
               <img className={styles.ourLogo} src={ourLogo} alt="ourLogo" />
             </div>
-          </header>
-          <section className={styles.sectionButtons}>
-            <button
-              className={styles.sidePanelButtons}
-              onClick={() => setIsSettingsModalOpen(true)}
-            >
-              Ρυθμήσες
-            </button>
-          </section>
-
-          <footer>
-            <button
-              className={`${styles.sidePanelButtons} ${styles.logout}`}
-              onClick={async () => {
-                authContext?.logout();
-                navigate("/login", { replace: true });
-              }}
-            >
-              Αποσύνδεση
-            </button>
-          </footer>
-        </aside>
+          </div>
+        </div>
 
         <main className={styles.mainOutlet}>
           <Outlet />
@@ -75,36 +85,30 @@ export default function SidePanel(props: ISidePanelProps) {
   } else {
     return (
       <>
+        {isSettingsModalOpen && (
+          <SettingsModal onDismiss={() => setIsSettingsModalOpen(false)} />
+        )}
         <Modal
           isOpen={true}
-          containerClassName={styles.sidePanelModal}
+          containerClassName={styles.modalWrapper}
           onDismiss={props.onOpenSideModal}
         >
-          <aside className={styles.sidePanelModal}>
-            <div className={styles.headerWrapper}>
+          <div className={styles.menuWrapper}>
+            <div className={styles.header}>
               <img
                 className={styles.logo}
                 src={storeDetails.logoUrl}
                 alt="Logo"
               />
-              <div className={styles.label}>
-                Powered By
-                <img className={styles.ourLogo} src={ourLogo} alt="ourLogo" />
-              </div>
             </div>
-            <section className={styles.sectionButtons}>
+            <div className={styles.menu}>
               <button
                 className={styles.sidePanelButtons}
-                onClick={() => {
-                  setIsSettingsModalOpen(true);
-                  props.onOpenSideModal();
-                }}
+                onClick={() => setIsSettingsModalOpen(true)}
               >
+                <FontIcon iconName="Settings" />
                 Ρυθμήσες
               </button>
-            </section>
-
-            <footer>
               <button
                 className={`${styles.sidePanelButtons} ${styles.logout}`}
                 onClick={async () => {
@@ -112,12 +116,16 @@ export default function SidePanel(props: ISidePanelProps) {
                   navigate("/login", { replace: true });
                 }}
               >
+                <FontIcon iconName="Back" />
                 Αποσύνδεση
               </button>
-            </footer>
-          </aside>
+            </div>
+            <div className={styles.label}>
+              Powered By
+              <img className={styles.ourLogo} src={ourLogo} alt="ourLogo" />
+            </div>
+          </div>
         </Modal>
-
         <main className={styles.mainOutlet}>
           <Outlet />
         </main>

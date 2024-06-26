@@ -40,6 +40,7 @@ export const mapStatusToEnum = (status: string): CustomerStatusEnum => {
 type ReservationsContextValue = {
   reservations: IReservation[];
   store: IStore;
+  isLoading: boolean;
   storeDetails: IStoreDetails;
   onChooseTab: (choosenTab: ChoosenTab) => void;
   fetchData: () => Promise<void>;
@@ -95,6 +96,7 @@ export default function ReservationsContextProvider(
   const [reservations, setReservations] = useState<IReservation[]>([]);
   const [searchedCustomers, setSearchedCustomer] = useState<IReservation[]>([]);
   const [store, setStore] = useState<IStore>(new Store());
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [storeDetails, setStoreDetails] = useState<IStoreDetails>(
     new StoreDetails()
   );
@@ -162,6 +164,7 @@ export default function ReservationsContextProvider(
 
   const fetchData = useCallback(async () => {
     try {
+      setIsLoading(true);
       let storeEmail = "";
       if (!!authContext?.user) {
         storeEmail = authContext?.user;
@@ -183,8 +186,10 @@ export default function ReservationsContextProvider(
           }))
         );
       }
+      setIsLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
+      setIsLoading(false);
     }
   }, [authContext?.user]);
 
@@ -240,6 +245,7 @@ export default function ReservationsContextProvider(
   const ctx: ReservationsContextValue = {
     reservations,
     store,
+    isLoading,
     fetchData,
     storeDetails,
     searchCustomer,

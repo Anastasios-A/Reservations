@@ -39,6 +39,7 @@ export interface IStore {
   id?: string;
   name: string;
   description: string;
+  reservationEmail?: string;
   budget: string;
   lat?: number;
   lng?: number;

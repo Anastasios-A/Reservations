@@ -9,6 +9,7 @@ import { ReactNode, createContext, useContext, useState } from "react";
 export type AuthContextValue = {
   login: (email: string, password: string) => Promise<string>;
   logout: () => Promise<void>;
+  isLoading: boolean;
   user: any;
 };
 
@@ -21,9 +22,12 @@ export default function AuthProvider(props: IAuthProviderProps) {
     localStorage.getItem("loggedInEmail")
   );
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   // call this function when you want to authenticate the user
   const login = async (email: string, password: string): Promise<string> => {
     try {
+      setIsLoading(true);
       const auth = getAuth();
       const userCredential: UserCredential = await signInWithEmailAndPassword(
         auth,
@@ -33,9 +37,11 @@ export default function AuthProvider(props: IAuthProviderProps) {
       console.log(userCredential);
       localStorage.setItem("loggedInEmail", email);
       setUser(email);
+      setIsLoading(false);
       return email;
       // If successful, you can redirect the user to another page or do something else
     } catch (error: any) {
+      setIsLoading(false);
       throw error;
     }
   };
@@ -51,6 +57,7 @@ export default function AuthProvider(props: IAuthProviderProps) {
   const ctx: AuthContextValue = {
     login,
     logout,
+    isLoading,
     user,
   };
   return (

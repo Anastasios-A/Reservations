@@ -6,29 +6,28 @@
   align-items: center;
   width: 100%;
   margin-bottom: 30px;
-
   font-weight: bold;
-
   @media #{$maxExtraSmallMobile} {
     flex-direction: column;
     justify-content: space-around;
     align-items: stretch;
-    height: 15%;
-    margin-bottom: 15px;
-    }
-    
-    @media screen and (max-width: 450px) {
+    display: flex;
+    gap: 20px;
+    // height: 15%;
+    //margin-bottom: 15px;
+  }
+
+  @media screen and (max-width: 450px) {
     margin-bottom: 30px;
   }
 }
 
 .tabButtons {
-  height: 38px;
-  width: 280px;
   display: flex;
+  gap: 1px;
+
   justify-content: start;
   min-width: max-content;
-  box-shadow: 0px 4px 4px 0px rgba(33, 33, 33, 0.25);
   border-radius: 20px;
   font-size: 15px;
   margin-right: 80px;
@@ -42,7 +41,7 @@
     display: grid;
     height: 100px;
     grid-template-columns: 1fr 1fr;
-    margin-bottom: 30px;
+    // margin-bottom: 30px;
   }
 }
 
@@ -50,9 +49,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 38px;
-
-  background-color: #f9f9f991;
+  padding: 10px;
+  font-size: 18px;
+  background-color: #ffffff;
   border: none;
 
   &:nth-child(1) {
@@ -73,9 +72,9 @@
   &Pending {
     color: #e8cb2f;
     @media screen and (max-width: 450px) {
-    display: flex;
+      display: flex;
       justify-content: center;
-      border-radius: 0 20px 0 0;
+      // border-radius: 0 20px 0 0;
     }
   }
 
@@ -83,7 +82,7 @@
     color: #5dd253;
     @media screen and (max-width: 450px) {
       justify-content: center;
-      border-radius: 0 0 0 20px;
+      //  border-radius: 0 0 0 20px;
     }
   }
 
@@ -98,7 +97,12 @@
 }
 
 .active {
-  border: 2px solid grey;
+  //border: 5px solid rgb(255, 235, 20);
+  box-shadow: 1.5px 2.7px 2.7px hsl(0deg 0% 0% / 0.44);
+}
+
+.inActive {
+  box-shadow: inset 0px 1px 2px 0px hsla(0, 0%, 0%, 0.44);
 }
 .RefreshButton {
   background-color: #5dd253;
@@ -116,7 +120,7 @@
   min-width: max-content;
   min-height: max-content;
   border-radius: 50%;
-  border: 2px solid #232323;
+  border: 1px solid #232323;
   margin: 6px;
   box-sizing: border-box;
 

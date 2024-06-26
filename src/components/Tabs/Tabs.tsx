@@ -36,7 +36,7 @@ export default function Tabs() {
 
   return (
     <div className={styles.tabs}>
-      <main className={styles.tabButtons}>
+      <div className={styles.tabButtons}>
         <button
           className={`${styles.button} ${
             choosenTab === ChoosenTab.All ? styles.active : ""
@@ -79,7 +79,7 @@ export default function Tabs() {
             {reservationsSum.declined}
           </div>
         </button>
-      </main>
+      </div>
       <button
         className={styles.RefreshButton}
         onClick={async () => await fetchData()}

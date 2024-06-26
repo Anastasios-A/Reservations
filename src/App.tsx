@@ -11,6 +11,7 @@ import { useState } from "react";
 export default function App() {
   initializeIcons();
   const [sideModale, setSideModale] = useState<boolean>(false);
+
   const sideModaleHandler = () => setSideModale((prev) => !prev);
   return (
     <>

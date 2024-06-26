@@ -5,7 +5,7 @@ import styles from "./Home.module.scss";
 import DeclineModal from "../../components/DeclineModal/DeclineModal";
 import { useReservationsContext } from "../../store/reservation-context";
 import QrReader from "../../components/QrCodeScanner/QrCodeScannerModal";
-import { Modal } from "@fluentui/react";
+import { Modal, Spinner, SpinnerSize } from "@fluentui/react";
 import { useState } from "react";
 import ManualInputCoupon from "../../components/ManualInputCoupon/ManualInputCoupon";
 import { IStore } from "../../Models/ContextModels";
@@ -15,7 +15,10 @@ interface IHomeProps {
 }
 
 export default function HomePage(props: IHomeProps) {
-  const isDeclineModalOpen = useReservationsContext().declineModal.modalIsOpen;
+  const isDeclineModalOpen: boolean =
+    useReservationsContext().declineModal.modalIsOpen;
+
+  const isLoading: boolean = useReservationsContext().isLoading;
   const store: IStore = useReservationsContext().store;
 
   const [isQrOpen, setQrOpen] = useState<boolean>(false);
@@ -46,9 +49,21 @@ export default function HomePage(props: IHomeProps) {
         </Modal>
       )}
       <main className={styles.homeMain}>
-        <Header opOpenSideModal={props.onOpenSideModal} />
-        <Tabs />
-        <ReservationList />
+        {isLoading ? (
+          <div className={styles.spinner}>
+            <Spinner
+              size={SpinnerSize.large}
+              styles={{ circle: styles.circle }}
+            />
+          </div>
+        ) : (
+          <>
+            <Header opOpenSideModal={props.onOpenSideModal} />
+            <Tabs />
+            <ReservationList />
+          </>
+        )}
+
         {store?.recomendedMenu && (
           <div className={styles.buttonsWrapper}>
             <button
